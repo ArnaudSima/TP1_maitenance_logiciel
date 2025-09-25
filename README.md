@@ -8,9 +8,7 @@ public Principal(int income = 50000)
      Balance = 0;
 }
 ```
-aaa,
 Solution :
-aaa
 ```c#
 public Principal(int income = MembersSalary.PrincipalSalary)
 {
