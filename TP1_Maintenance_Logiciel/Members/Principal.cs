@@ -4,13 +4,13 @@ namespace SchoolManager
 {
     public class Principal : SchoolMember, IPayroll
     {
-        private int income;
-        private int balance;
+        public int Income { get; set; }
+        public int Balance { get; set; }
 
-        public Principal(int income = 50000)
+        public Principal(int income = MembersSalary.PrincipalSalary)
         {
-            this.income = income;
-            balance = 0;
+            Income = income;
+            Balance = 0;
         }
 
         public Principal(string name, string address, int phoneNum, int income = 50000)
@@ -18,8 +18,8 @@ namespace SchoolManager
             Name = name;
             Address = address;
             Phone = phoneNum;
-            this.income = income;
-            balance = 0;
+            Income = income;
+            Balance = 0;
         }
 
         public void display()
@@ -29,7 +29,7 @@ namespace SchoolManager
 
         public void Pay()
         {
-            Util.NetworkDelay.PayEntity("Principal", Name, ref balance, income);
+            //Util.NetworkDelay.PayEntity("Principal", Name, ref Balance, Income);
         }
     }
 }
