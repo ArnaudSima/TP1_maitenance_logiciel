@@ -21,16 +21,17 @@ namespace SchoolManager
 
         public static SchoolMember AcceptAttributes()
         {
+            //data envy
             SchoolMember member = new SchoolMember();
             member.Name = Util.Console.AskQuestion("Enter name: ");
             member.Address = Util.Console.AskQuestion("Enter address: ");
             member.Phone = Util.Console.AskQuestionInt("Enter phone number: ");
-
             return member;
         }
 
         private static int acceptChoices()
         {
+            
             return Util.Console.AskQuestionInt("\n1. Add\n2. Display\n3. Pay\n4. Raise Complaint\n5. Student Performance\nPlease enter the member type: ");
         }
 
@@ -42,6 +43,7 @@ namespace SchoolManager
 
         public static void AddPrincpal()
         {
+            //man in the middle
             SchoolMember member = AcceptAttributes();
             Principal.Name = member.Name;
             Principal.Address = member.Address;
@@ -53,7 +55,6 @@ namespace SchoolManager
             SchoolMember member = AcceptAttributes();
             Student newStudent = new Student(member.Name, member.Address, member.Phone);
             newStudent.Grade = Util.Console.AskQuestionInt("Enter grade: ");
-
             Students.Add(newStudent);
         }
 
@@ -62,7 +63,6 @@ namespace SchoolManager
             SchoolMember member = AcceptAttributes();
             Teacher newTeacher = new Teacher(member.Name, member.Address, member.Phone);
             newTeacher.Subject = Util.Console.AskQuestion("Enter subject: ");
-
             Teachers.Add(newTeacher);
         }
 
@@ -153,11 +153,13 @@ namespace SchoolManager
 
         public static void RaiseComplaint()
         {
+            //Man in the middle
             Receptionist.HandleComplaint();
         }
 
         private static void handleComplaintRaised(object sender, Complaint complaint)
         {
+            //data envy
             Console.WriteLine("\nThis is a confirmation that we received your complaint. The details are as follows:");
             Console.WriteLine($"---------\nComplaint Time: {complaint.ComplaintTime.ToLongDateString()}, {complaint.ComplaintTime.ToLongTimeString()}");
             Console.WriteLine($"Complaint Raised: {complaint.ComplaintRaised}\n---------");
@@ -196,7 +198,7 @@ namespace SchoolManager
             bool flag = true;
             while (flag)
             {
-
+                //switch case 
                 int choice = acceptChoices();
                 switch (choice)
                 {
