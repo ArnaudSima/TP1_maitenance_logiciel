@@ -20,7 +20,7 @@ namespace SchoolManager
             this.grade = grade;
         }
 
-        public void display()
+        public void Display()
         {
             Console.WriteLine("Name: {0}, Address: {1}, Phone: {2}, Grade: {3}", Name, Address, Phone, Grade);
         }
