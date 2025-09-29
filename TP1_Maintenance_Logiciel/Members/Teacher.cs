@@ -18,7 +18,7 @@ namespace SchoolManager
             balance = 0;
         }
 
-        public void display()
+        public void Display()
         {
             Console.WriteLine("Name: {0}, Address: {1}, Phone: {2}, Subject: {3}", Name, Address, Phone, Subject);
         }
