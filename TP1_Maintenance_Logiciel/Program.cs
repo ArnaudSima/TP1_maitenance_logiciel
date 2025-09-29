@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TP1_Maintenance_Logiciel.Members;
 
 namespace SchoolManager
 {
@@ -10,7 +11,7 @@ namespace SchoolManager
         static public List<Teacher> Teachers = new List<Teacher>();
         static public Principal Principal = new Principal();
         static public Receptionist Receptionist = new Receptionist();
-
+        static public Dictionary<int, IDisplayMembres> StrategiesDisplay = new Dictionary<int, IDisplayMembres>();
         enum SchoolMemberType
         {
             typePrincipal = 1,
@@ -31,7 +32,7 @@ namespace SchoolManager
 
         private static int acceptChoices()
         {
-            return Util.Console.AskQuestionInt("\n1. Add\n2. Display\n3. Pay\n4. Raise Complaint\n5. Student Performance\nPlease enter the member type: ");
+            return Util.Console.AskQuestionInt("\n1. Add\n2. display\n3. Pay\n4. Raise Complaint\n5. Student Performance\nPlease enter the member type: ");
         }
 
         private static int acceptMemberType()
@@ -88,31 +89,15 @@ namespace SchoolManager
         private static void display()
         {
             int memberType = acceptMemberType();
-
-            switch (memberType)
+            if(StrategiesDisplay == null)
             {
-                case 1:
-                    Console.WriteLine("\nThe Principal's details are:");
-                    Principal.display();
-                    break;
-                case 2:
-                    Console.WriteLine("\nThe teachers are:");
-                    foreach (Teacher teacher in Teachers)
-                        teacher.display();
-                    break;
-                case 3:
-                    Console.WriteLine("\nThe students are:");
-                    foreach (Student student in Students)
-                        student.display();
-                    break;
-                case 4:
-                    Console.WriteLine("\nThe Receptionist's details are:");
-                    Receptionist.Display();
-                    break;
-                default:
-                    Console.WriteLine("Invalid input. Terminating operation.");
-                    break;
+                return;
             }
+            if (!StrategiesDisplay.TryGetValue(memberType, out var displayMembres))
+            {
+               return;
+            }
+            StrategiesDisplay.GetValueOrDefault(memberType)?.Display();
         }
 
         public static void Pay()
@@ -121,32 +106,7 @@ namespace SchoolManager
             int memberType = acceptMemberType();
 
             Console.WriteLine("\nPayments in progress...");
-
-            switch (memberType)
-            {
-                case 1:
-                    Principal.Pay();
-                    break;
-                case 2:
-                    List<Task> payments = new List<Task>();
-
-                    foreach (Teacher teacher in Teachers)
-                    {
-                        Task payment = new Task(teacher.Pay);
-                        payments.Add(payment);
-                        payment.Start();
-                    }
-
-                    Task.WaitAll(payments.ToArray());
-
-                    break;
-                case 4:
-                    Receptionist.Pay();
-                    break;
-                default:
-                    Console.WriteLine("Invalid input. Terminating operation.");
-                    break;
-            }
+            
 
             Console.WriteLine("Payments completed.\n");
         }
@@ -196,7 +156,7 @@ namespace SchoolManager
             bool flag = true;
             while (flag)
             {
-
+                StrategiesDisplay = new Dictionary<int, IDisplayMembres> { {1, new DisplayPrincipal(Principal) }, { 2,new DisplayReceptionist(Receptionist) }, { 3,new DisplayStudents(Students)}, { 4,new DisplayTeachers(Teachers)} };
                 int choice = acceptChoices();
                 switch (choice)
                 {

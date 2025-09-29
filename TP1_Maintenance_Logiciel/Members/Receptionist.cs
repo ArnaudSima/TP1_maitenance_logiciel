@@ -33,7 +33,7 @@ namespace SchoolManager
             balance = 0;
         }
 
-        public void Display()
+        public void display()
         {
             Console.WriteLine("Name: {0}, Address: {1}, Phone: {2}", Name, Address, Phone);
         }
