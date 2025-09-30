@@ -9,5 +9,9 @@ namespace SchoolManager
     public  interface IDisplayMembres
     {
         public void Display();
+        public void Add();
+        public void Pay();
+        public void RaiseComplaint();
+
     }
 }
