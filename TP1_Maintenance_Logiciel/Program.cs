@@ -86,19 +86,7 @@ namespace SchoolManager
             }
         }
 
-        private static void display()
-        {
-            int memberType = acceptMemberType();
-            if(StrategiesDisplay == null)
-            {
-                return;
-            }
-            if (!StrategiesDisplay.TryGetValue(memberType, out var displayMembres))
-            {
-               return;
-            }
-            StrategiesDisplay.GetValueOrDefault(memberType)?.Display();
-        }
+       
 
         public static void Pay()
         {
@@ -156,7 +144,7 @@ namespace SchoolManager
             bool flag = true;
             while (flag)
             {
-                StrategiesDisplay = new Dictionary<int, IDisplayMembres> { {1, new DisplayPrincipal(Principal) }, { 2,new DisplayReceptionist(Receptionist) }, { 3,new DisplayStudents(Students)}, { 4,new DisplayTeachers(Teachers)} };
+                StrategiesDisplay = new Dictionary<int, IDisplayMembres> { {1, new DisplayPrincipal(Principal) }, { 2,new StrategyDisplay(Receptionist) }, { 3,new DisplayStudents(Students)}, { 4,new DisplayTeachers(Teachers)} };
                 int choice = acceptChoices();
                 switch (choice)
                 {

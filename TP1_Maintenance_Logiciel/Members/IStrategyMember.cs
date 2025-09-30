@@ -8,10 +8,10 @@ namespace SchoolManager
 {
     public  interface IDisplayMembres
     {
-        public void Display();
-        public void Add();
-        public void Pay();
-        public void RaiseComplaint();
-
+        public void MakeChoice();
+        public void Principal();
+        public void Student();
+        public void Teacher();
+        public void Receptionnist();
     }
 }
