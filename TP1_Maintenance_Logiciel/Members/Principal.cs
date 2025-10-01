@@ -2,7 +2,7 @@
 
 namespace SchoolManager
 {
-    public class Principal : SchoolMember, IPayroll
+    public class Principal : SchoolMember, IPayroll, IMemberAction
     {
         public int Income { get; set; }
         public int Balance { get; set; }
@@ -21,15 +21,25 @@ namespace SchoolManager
             Income = income;
             Balance = 0;
         }
-
-        public void display()
+       
+        public void Display()
         {
-            Console.WriteLine("Name: {0}, Address: {1}, Phone: {2}", Name, Address, Phone);
+           Program.Principal.Display();
         }
 
         public void Pay()
         {
             //Util.NetworkDelay.PayEntity("Principal", Name, ref Balance, Income);
+        }
+
+        public void Add()
+        {
+            Console.WriteLine("There can be only one Principal!");
+        }
+
+        public void RaiseComplaint()
+        {
+            Console.WriteLine("If you have a complaint please adress the receptionnist");
         }
     }
 }

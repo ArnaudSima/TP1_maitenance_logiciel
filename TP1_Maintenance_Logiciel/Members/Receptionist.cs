@@ -12,7 +12,7 @@ namespace SchoolManager
         public string ComplaintRaised { get; set; }
     }
 
-    public class Receptionist : SchoolMember, IPayroll
+    public class Receptionist : SchoolMember, IPayroll, IMemberAction
     {
         private int income;
         private int balance;
@@ -32,8 +32,12 @@ namespace SchoolManager
             this.income = income;
             balance = 0;
         }
+        public Receptionist()
+        {
 
-        public void display()
+        }
+
+        public void Display()
         {
             Console.WriteLine("Name: {0}, Address: {1}, Phone: {2}", Name, Address, Phone);
         }
@@ -50,6 +54,21 @@ namespace SchoolManager
             complaint.ComplaintRaised = Util.Console.AskQuestion("Please enter your Complaint: ");
 
             ComplaintRaised?.Invoke(this, complaint);
+        }
+
+        public void Add()
+        {
+            Console.WriteLine("There can only be one receptionnist!");
+        }
+
+        public void RaiseComplaint()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool MakeChoice()
+        {
+            throw new NotImplementedException();
         }
     }
 }

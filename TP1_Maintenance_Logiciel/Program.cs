@@ -11,7 +11,7 @@ namespace SchoolManager
         static public List<Teacher> Teachers = new List<Teacher>();
         static public Principal Principal = new Principal();
         static public Receptionist Receptionist = new Receptionist();
-        static public Dictionary<int, IDisplayMembres> StrategiesDisplay = new Dictionary<int, IDisplayMembres>();
+        static public Dictionary<int, SchoolMember> StrategiesMembers = new Dictionary<int, SchoolMember>();
         enum SchoolMemberType
         {
             typePrincipal = 1,
@@ -30,12 +30,12 @@ namespace SchoolManager
             return member;
         }
 
-        private static int acceptChoices()
+        private static int AcceptChoices()
         {
             return Util.Console.AskQuestionInt("\n1. Add\n2. display\n3. Pay\n4. Raise Complaint\n5. Student Performance\nPlease enter the member type: ");
         }
 
-        private static int acceptMemberType()
+        public static int AcceptMemberType()
         {
             int x = Util.Console.AskQuestionInt("\n1. Principal\n2. Teacher\n3. Student\n4. Receptionist\nPlease enter the member type: ");
             return Enum.IsDefined(typeof(SchoolMemberType), x) ? x : -1;
@@ -70,7 +70,7 @@ namespace SchoolManager
         public static void Add()
         {
             Console.WriteLine("\nPlease note that the Principal/Receptionist details cannot be added or modified now.");
-            int memberType = acceptMemberType();
+            int memberType = AcceptMemberType();
 
             switch (memberType)
             {
@@ -91,7 +91,7 @@ namespace SchoolManager
         public static void Pay()
         {
             Console.WriteLine("\nPlease note that the students cannot be paid.");
-            int memberType = acceptMemberType();
+            int memberType = AcceptMemberType();
 
             Console.WriteLine("\nPayments in progress...");
             
@@ -144,28 +144,19 @@ namespace SchoolManager
             bool flag = true;
             while (flag)
             {
-                StrategiesDisplay = new Dictionary<int, IDisplayMembres> { {1, new DisplayPrincipal(Principal) }, { 2,new StrategyDisplay(Receptionist) }, { 3,new DisplayStudents(Students)}, { 4,new DisplayTeachers(Teachers)} };
-                int choice = acceptChoices();
-                switch (choice)
+
+                StrategiesMembers = new Dictionary<int, SchoolMember> { {1, new Student()}, {2, new Teacher()},{3 ,new Principal()},{4, new Receptionist()} };
+                int choiceAction = AcceptChoices();
+
+                int choiceMember = AcceptMemberType();
+
+                if (StrategiesMembers.TryGetValue(choiceMember, out var action))
                 {
-                    case 1:
-                        Add();
-                        break;
-                    case 2:
-                        display();
-                        break;
-                    case 3:
-                        Pay();
-                        break;
-                    case 4:
-                        RaiseComplaint();
-                        break;
-                    case 5:
-                        await showPerformance();
-                        break;
-                    default:
-                        flag = false;
-                        break;
+                    flag = SchoolMember.MakeChoice(choiceAction, StrategiesMembers[choiceMember]);
+                }
+                else
+                {
+                    flag = false;
                 }
             }
 

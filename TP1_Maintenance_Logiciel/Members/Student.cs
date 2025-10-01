@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SchoolManager
 {
-    public class Student : SchoolMember
+    public class Student : SchoolMember, IMemberAction
     {
         private int grade;
         public int Grade
@@ -20,7 +20,7 @@ namespace SchoolManager
             this.grade = grade;
         }
 
-        public void display()
+        public void Display()
         {
             Console.WriteLine("Name: {0}, Address: {1}, Phone: {2}, Grade: {3}", Name, Address, Phone, Grade);
         }
@@ -34,6 +34,21 @@ namespace SchoolManager
             }
 
             return avg / students.Count;
+        }
+
+        public void Add()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Pay()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RaiseComplaint()
+        {
+            throw new NotImplementedException();
         }
     }
 }

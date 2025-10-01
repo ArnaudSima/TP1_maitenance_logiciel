@@ -2,7 +2,7 @@
 
 namespace SchoolManager
 {
-    public class Teacher : SchoolMember, IPayroll
+    public class Teacher : SchoolMember, IPayroll, IMemberAction
     {
         public string Subject;
         private int income;
@@ -17,8 +17,9 @@ namespace SchoolManager
             this.income = income;
             balance = 0;
         }
+        public Teacher() { }
 
-        public void display()
+        public void Display()
         {
             Console.WriteLine("Name: {0}, Address: {1}, Phone: {2}, Subject: {3}", Name, Address, Phone, Subject);
         }
@@ -26,6 +27,16 @@ namespace SchoolManager
         public void Pay()
         {
             Util.NetworkDelay.PayEntity("Teacher", Name, ref balance, income);
+        }
+
+        public void Add()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RaiseComplaint()
+        {
+            throw new NotImplementedException();
         }
     }
 }
