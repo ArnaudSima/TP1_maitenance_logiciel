@@ -1,6 +1,6 @@
 # TP1_maitenance_logiciel
 ## Table des matières
-### Fichier Program
+### Issue  Principal/Program
 Correction du codesmell GodClass
 ```C#
     public class Program
