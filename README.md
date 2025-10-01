@@ -1,7 +1,7 @@
 # TP1_maitenance_logiciel
 ## Table des matières
 ### Issue  Principal/Program
-Correction du codesmell GodClass
+Correction du codesmell GodClass :
 ```C#
     public class Program
     {
@@ -59,7 +59,7 @@ Correction du codesmell GodClass
         }
     }
 ```
-Correction du codesmell Switch statement
+Correction du codesmell Switch statement :
 ```C#
     //J'ai remplace le switch statement par un strategy pattern
     StrategiesMembers = new Dictionary<int, IMemberAction> { { 1, new Principal() }, { 2, new Teacher() }, { 3,  new Student()}, { 4, new Receptionist() } };
