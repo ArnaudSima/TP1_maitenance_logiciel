@@ -61,5 +61,36 @@ Correction du codesmell GodClass
 ```
 Correction du codesmell Switch statement
 ```C#
+    //J'ai remplace le switch statement par un strategy pattern
+    StrategiesMembers = new Dictionary<int, IMemberAction> { { 1, new Principal() }, { 2, new Teacher() }, { 3,  new Student()}, { 4, new Receptionist() } };
+
+}
+
+public static async Task Main(string[] args)
+{
+    // Just for manual testing purposes.
+    AddData();
+    Console.WriteLine("-------------- Welcome ---------------\n");
+    bool flag = true;
+    while (flag)
+    {
+
+        int choiceAction = Util.ConsoleHelper.AcceptChoices();
+        if (choiceAction > 5)
+        {
+            flag = false;
+            break;
+        }
+        int choiceMember = Util.ConsoleHelper.AcceptMemberType();
+
+        if (StrategiesMembers.TryGetValue(choiceMember, out var action))
+        {
+            flag = Util.ConsoleHelper.MakeChoice(choiceAction, StrategiesMembers[choiceMember]);
+        }
+        else
+        {
+            flag = false;
+        }
+    }
 ```
 
