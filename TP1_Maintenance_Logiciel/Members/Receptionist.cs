@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,14 +15,14 @@ namespace SchoolManager
 
     public class Receptionist : SchoolMember, IPayroll, IMemberAction
     {
-        private int income;
-        private int balance;
+        private int Income;
+        private int Balance;
         public event EventHandler<Complaint> ComplaintRaised;
 
         public Receptionist(int income = 10000) 
         {
-            this.income = income;
-            balance = 0;
+            Income = income;
+            Balance = 0;
         }
 
         public Receptionist(string name, string address, int phoneNum, int income = MembersSalary.ReceptionnistSalary)
@@ -29,8 +30,8 @@ namespace SchoolManager
             Name = name;
             Address = address;
             Phone = phoneNum;
-            this.income = income;
-            balance = 0;
+            Income = income;
+            Balance = 0;
         }
         public Receptionist()
         {
@@ -39,23 +40,27 @@ namespace SchoolManager
 
         public void Display()
         {
-            Console.WriteLine("Name: {0}, Address: {1}, Phone: {2}", Name, Address, Phone);
+            Console.WriteLine(Program.Receptionist.ToString());
         }
 
         public void Pay()
         {
-            Util.NetworkDelay.PayEntity("Receptionist", Name, ref balance, income);
+            Util.NetworkDelay.PayEntity("Receptionist", Name, ref Balance, Income);
         }
 
         public void HandleComplaint()
         {
             Complaint complaint = new Complaint();
             complaint.ComplaintTime = DateTime.Now;
-            complaint.ComplaintRaised = Util.Console.AskQuestion("Please enter your Complaint: ");
-
-            ComplaintRaised?.Invoke(this, complaint);
+            complaint.ComplaintRaised = Util.ConsoleHelper.AskQuestion("Please enter your Complaint: ");
+            HandleComplaintRaised(complaint);
         }
-
+        private  void HandleComplaintRaised(Complaint complaint)
+        {
+            Console.WriteLine("\nThis is a confirmation that we received your complaint. The details are as follows:");
+            Console.WriteLine($"---------\nComplaint Time: {complaint.ComplaintTime.ToLongDateString()}, {complaint.ComplaintTime.ToLongTimeString()}");
+            Console.WriteLine($"Complaint Raised: {complaint.ComplaintRaised}\n---------");
+        }
         public void Add()
         {
             Console.WriteLine("There can only be one receptionnist!");
@@ -66,6 +71,10 @@ namespace SchoolManager
             HandleComplaint();
         }
 
+        private string ToString()
+        {
+            return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Income: ${Income}, Balance : ${Balance}";
+        }
 
     }
 }

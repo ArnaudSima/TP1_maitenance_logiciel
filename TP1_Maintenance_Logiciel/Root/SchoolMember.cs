@@ -19,31 +19,7 @@
             set { phone = value; }
         }
 
-        public static bool MakeChoice(int choice,IMemberAction member)
-        {
-            if (choice == 1)
-            {
-                member.Display();
-                return true;
-            }
-            else if (choice == 2)
-            {
-                member.Add();
-                return true;
-            }else if(choice == 3)
-            {
-                member.Pay();
-                return true;
-            }else if(choice == 4)
-            {
-                member.RaiseComplaint();
-                return true;
-            }
-            else
-            {
-                return true;
-            }
-        }
+       
        
     }
 }

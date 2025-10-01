@@ -34,9 +34,9 @@ namespace SchoolManager
 
         public void Add()
         {
-            SchoolMember member = Program.AcceptAttributes();
+            SchoolMember member = Util.ConsoleHelper.AcceptAttributes();
             Teacher newTeacher = new Teacher(member.Name, member.Address, member.Phone);
-            newTeacher.Subject = Util.Console.AskQuestion("Enter subject: ");
+            newTeacher.Subject = Util.ConsoleHelper.AskQuestion("Enter subject: ");
 
             Program.Teachers.Add(newTeacher);
         }
@@ -45,7 +45,7 @@ namespace SchoolManager
         {
             Console.WriteLine("Teachers cannot receive complaints,adress the receptionnist");
         }
-        public string toString()
+        public string ToString()
         {
             return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Subject: {Subject}";
         }

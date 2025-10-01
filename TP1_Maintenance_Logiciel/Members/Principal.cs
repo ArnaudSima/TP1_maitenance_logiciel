@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace SchoolManager
 {
@@ -24,7 +25,7 @@ namespace SchoolManager
        
         public void Display()
         {
-           Program.Principal.Display();
+            Console.WriteLine(Program.Principal.ToString());
         }
 
         public void Pay()
@@ -35,7 +36,7 @@ namespace SchoolManager
         public void Add()
         {
             Console.WriteLine("Please enter the Princpals information.");
-            SchoolMember member = Program.AcceptAttributes();
+            SchoolMember member = Util.ConsoleHelper.AcceptAttributes();
             Program.Principal.Name = member.Name;
             Program.Principal.Address = member.Address;
             Program.Principal.Phone = member.Phone;
@@ -44,6 +45,10 @@ namespace SchoolManager
         public void RaiseComplaint()
         {
             Console.WriteLine("If you have a complaint please adress the receptionnist");
+        }
+        public string ToString()
+        {
+            return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Balance: {Balance}";
         }
     }
 }

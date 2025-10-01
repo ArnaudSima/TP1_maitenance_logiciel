@@ -6,19 +6,15 @@ namespace SchoolManager
 {
     public class Student : SchoolMember, IMemberAction
     {
-        private int grade;
-        public int Grade
-        {
-            get { return grade; }
-            set { grade = value; }
-        }
+        public int Grade{ get; set; }
+        public double AverageGrade { get; set; }
 
         public Student(string name = "", string address = "", int phoneNum = 0, int grade = 0)
         {
             Name = name;
             Address = address;
             Phone = phoneNum;
-            this.grade = grade;
+            Grade = grade;
         }
 
         public void Display()
@@ -37,15 +33,15 @@ namespace SchoolManager
             {
                 avg += student.Grade;
             }
-
+            
             return avg / students.Count;
         }
 
         public void Add()
         {
-            SchoolMember member = Program.AcceptAttributes();
+            SchoolMember member = Util.ConsoleHelper.AcceptAttributes();
             Student newStudent = new Student(member.Name, member.Address, member.Phone);
-            newStudent.Grade = Util.Console.AskQuestionInt("Enter grade: ");
+            newStudent.Grade = Util.ConsoleHelper.AskQuestionInt("Enter grade: ");
             Program.Students.Add(newStudent);
         }
 
@@ -58,9 +54,14 @@ namespace SchoolManager
         {
            Console.WriteLine("Students cannot receive complaints,adress the receptionnist");
         }
-        public string toString()
+        public string ToString()
         {
             return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Grade: {Grade}";
+        }
+        public static async Task ShowPerformance()
+        {
+            double average = await Task.Run(() => Student.averageGrade(Program.Students));
+            Console.WriteLine($"The student average performance is: {average}");
         }
     }
 }
