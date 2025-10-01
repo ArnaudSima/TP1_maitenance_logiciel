@@ -19,7 +19,7 @@
             set { phone = value; }
         }
 
-        public static bool MakeChoice(int choice,SchoolMember member)
+        public static bool MakeChoice(int choice,IMemberAction member)
         {
             if (choice == 1)
             {
@@ -44,25 +44,6 @@
                 return true;
             }
         }
-        public void Add()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Display()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void Pay()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RaiseComplaint()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

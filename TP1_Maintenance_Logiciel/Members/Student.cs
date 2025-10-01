@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Intrinsics.X86;
 
 namespace SchoolManager
 {
-    public class Student : SchoolMember, IMemberAction
+    public class Student : SchoolMember
     {
         private int grade;
         public int Grade
@@ -22,7 +23,11 @@ namespace SchoolManager
 
         public void Display()
         {
-            Console.WriteLine("Name: {0}, Address: {1}, Phone: {2}, Grade: {3}", Name, Address, Phone, Grade);
+            foreach (Student student in Program.Students)
+            {
+                Console.WriteLine(student.ToString());
+            }
+            
         }
 
         public static double averageGrade(List<Student> students)
@@ -49,6 +54,10 @@ namespace SchoolManager
         public void RaiseComplaint()
         {
             throw new NotImplementedException();
+        }
+        public string toString()
+        {
+            return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Grade: {Grade}";
         }
     }
 }

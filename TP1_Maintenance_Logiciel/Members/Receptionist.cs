@@ -63,12 +63,9 @@ namespace SchoolManager
 
         public void RaiseComplaint()
         {
-            throw new NotImplementedException();
+            HandleComplaint();
         }
 
-        public bool MakeChoice()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

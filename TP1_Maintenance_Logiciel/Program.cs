@@ -11,7 +11,7 @@ namespace SchoolManager
         static public List<Teacher> Teachers = new List<Teacher>();
         static public Principal Principal = new Principal();
         static public Receptionist Receptionist = new Receptionist();
-        static public Dictionary<int, SchoolMember> StrategiesMembers = new Dictionary<int, SchoolMember>();
+        static public Dictionary<int, IMemberAction> StrategiesMembers = new Dictionary<int, IMemberAction>();
         enum SchoolMemberType
         {
             typePrincipal = 1,
@@ -145,7 +145,7 @@ namespace SchoolManager
             while (flag)
             {
 
-                StrategiesMembers = new Dictionary<int, SchoolMember> { {1, new Student()}, {2, new Teacher()},{3 ,new Principal()},{4, new Receptionist()} };
+                StrategiesMembers = new Dictionary<int, IMemberAction> { {1, new Student()}, {2, new Teacher()},{3 ,new Principal()},{4, new Receptionist()} };
                 int choiceAction = AcceptChoices();
 
                 int choiceMember = AcceptMemberType();
