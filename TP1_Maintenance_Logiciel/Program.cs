@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TP1_Maintenance_Logiciel.Members;
 
 namespace SchoolManager
 {
@@ -39,51 +38,6 @@ namespace SchoolManager
         {
             int x = Util.Console.AskQuestionInt("\n1. Principal\n2. Teacher\n3. Student\n4. Receptionist\nPlease enter the member type: ");
             return Enum.IsDefined(typeof(SchoolMemberType), x) ? x : -1;
-        }
-
-        public static void AddPrincpal()
-        {
-            SchoolMember member = AcceptAttributes();
-            Principal.Name = member.Name;
-            Principal.Address = member.Address;
-            Principal.Phone = member.Phone;
-        }
-
-        private static void addStudent()
-        {
-            SchoolMember member = AcceptAttributes();
-            Student newStudent = new Student(member.Name, member.Address, member.Phone);
-            newStudent.Grade = Util.Console.AskQuestionInt("Enter grade: ");
-
-            Students.Add(newStudent);
-        }
-
-        private static void addTeacher()
-        {
-            SchoolMember member = AcceptAttributes();
-            Teacher newTeacher = new Teacher(member.Name, member.Address, member.Phone);
-            newTeacher.Subject = Util.Console.AskQuestion("Enter subject: ");
-
-            Teachers.Add(newTeacher);
-        }
-
-        public static void Add()
-        {
-            Console.WriteLine("\nPlease note that the Principal/Receptionist details cannot be added or modified now.");
-            int memberType = AcceptMemberType();
-
-            switch (memberType)
-            {
-                case 2:
-                    addTeacher();
-                    break;
-                case 3:
-                    addStudent();
-                    break;
-                default:
-                    Console.WriteLine("Invalid input. Terminating operation.");
-                    break;
-            }
         }
 
        
@@ -138,8 +92,6 @@ namespace SchoolManager
 
             Console.WriteLine("-------------- Welcome ---------------\n");
 
-            //Console.WriteLine("Please enter the Princpals information.");
-            //AddPrincpal();
 
             bool flag = true;
             while (flag)

@@ -4,7 +4,7 @@ using System.Runtime.Intrinsics.X86;
 
 namespace SchoolManager
 {
-    public class Student : SchoolMember
+    public class Student : SchoolMember, IMemberAction
     {
         private int grade;
         public int Grade
@@ -43,17 +43,20 @@ namespace SchoolManager
 
         public void Add()
         {
-            throw new NotImplementedException();
+            SchoolMember member = Program.AcceptAttributes();
+            Student newStudent = new Student(member.Name, member.Address, member.Phone);
+            newStudent.Grade = Util.Console.AskQuestionInt("Enter grade: ");
+            Program.Students.Add(newStudent);
         }
 
         public void Pay()
         {
-            throw new NotImplementedException();
+           Console.WriteLine("A student cannot receive a pay");
         }
 
         public void RaiseComplaint()
         {
-            throw new NotImplementedException();
+           Console.WriteLine("Students cannot receive complaints,adress the receptionnist");
         }
         public string toString()
         {

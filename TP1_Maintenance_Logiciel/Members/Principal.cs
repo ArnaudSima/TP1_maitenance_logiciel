@@ -34,7 +34,11 @@ namespace SchoolManager
 
         public void Add()
         {
-            Console.WriteLine("There can be only one Principal!");
+            Console.WriteLine("Please enter the Princpals information.");
+            SchoolMember member = Program.AcceptAttributes();
+            Program.Principal.Name = member.Name;
+            Program.Principal.Address = member.Address;
+            Program.Principal.Phone = member.Phone;
         }
 
         public void RaiseComplaint()

@@ -34,12 +34,16 @@ namespace SchoolManager
 
         public void Add()
         {
-            throw new NotImplementedException();
+            SchoolMember member = Program.AcceptAttributes();
+            Teacher newTeacher = new Teacher(member.Name, member.Address, member.Phone);
+            newTeacher.Subject = Util.Console.AskQuestion("Enter subject: ");
+
+            Program.Teachers.Add(newTeacher);
         }
 
         public void RaiseComplaint()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Teachers cannot receive complaints,adress the receptionnist");
         }
         public string toString()
         {
