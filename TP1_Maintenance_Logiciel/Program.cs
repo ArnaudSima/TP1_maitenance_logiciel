@@ -12,7 +12,7 @@ namespace SchoolManager
         static public Dictionary<int, IMemberAction> StrategiesMembers = new Dictionary<int, IMemberAction>();
 
 
-
+        //J'ai enleve le codesmell godclass en repartissant les methodes dans differentes classes
         private static void AddData()
         {
             Receptionist = new Receptionist("Receptionist", "address", 123);
@@ -24,6 +24,7 @@ namespace SchoolManager
                 Students.Add(new Student(i.ToString(), i.ToString(), i, i));
                 Teachers.Add(new Teacher(i.ToString(), i.ToString(), i));
             }
+            //J'ai remplace le switch statement par un strategy pattern
             StrategiesMembers = new Dictionary<int, IMemberAction> { { 1, new Principal() }, { 2, new Teacher() }, { 3,  new Student()}, { 4, new Receptionist() } };
 
         }
