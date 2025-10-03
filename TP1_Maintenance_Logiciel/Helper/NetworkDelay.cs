@@ -29,7 +29,7 @@ namespace Util
             SimulateNetworkDelay();
 
             balance += income;
-            System.Console.WriteLine($"Paid {entity}: {name}. Total balance: {balance}");
+            System.Console.WriteLine($"Paid {entity}: {name}. Total Balance: {balance}");
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace SchoolManager
 {
-    public class Principal : SchoolMember, IPayroll
+    public class Principal : SchoolMember, IPayroll, IMemberAction
     {
         public int Income { get; set; }
         public int Balance { get; set; }
@@ -21,15 +22,33 @@ namespace SchoolManager
             Income = income;
             Balance = 0;
         }
-
-        public void display()
+       
+        public void Display()
         {
-            Console.WriteLine("Name: {0}, Address: {1}, Phone: {2}", Name, Address, Phone);
+            Console.WriteLine(Program.Principal.ToString());
         }
 
         public void Pay()
         {
             //Util.NetworkDelay.PayEntity("Principal", Name, ref Balance, Income);
+        }
+
+        public void Add()
+        {
+            Console.WriteLine("Please enter the Princpals information.");
+            SchoolMember member = Util.ConsoleHelper.AcceptAttributes();
+            Program.Principal.Name = member.Name;
+            Program.Principal.Address = member.Address;
+            Program.Principal.Phone = member.Phone;
+        }
+
+        public void RaiseComplaint()
+        {
+            Console.WriteLine("If you have a complaint please adress the receptionnist");
+        }
+        public string ToString()
+        {
+            return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Balance: {Balance}";
         }
     }
 }
