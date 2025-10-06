@@ -41,19 +41,23 @@ namespace SchoolManager
                 int choiceAction = Util.ConsoleHelper.AcceptChoices();
                 if (choiceAction > 5)
                 {
-                    flag = false;
-                    break;
+                    Console.WriteLine($"Invalid input, try again:\n");
+                    continue;
+                    
                 }
-                int choiceMember = Util.ConsoleHelper.AcceptMemberType();
+                    int choiceMember = Util.ConsoleHelper.AcceptMemberType();
 
-                if (StrategiesMembers.TryGetValue(choiceMember, out var action))
-                {
-                    flag = Util.ConsoleHelper.MakeChoice(choiceAction, StrategiesMembers[choiceMember]);
-                }
-                else
-                {
-                    flag = false;
-                }
+                    if (StrategiesMembers.TryGetValue(choiceMember, out var action))
+                    {
+                        flag = Util.ConsoleHelper.MakeChoice(choiceAction, StrategiesMembers[choiceMember]);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Invalid input, try again:\n");
+                        continue;
+                    }
+                
+                
             }
 
             Console.WriteLine("\n-------------- Bye --------------");
