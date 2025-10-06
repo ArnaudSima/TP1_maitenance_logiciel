@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace SchoolManager
 {
-    public class Principal : SchoolMember, IPayroll, IMemberAction
+    public class Principal : SchoolMember, IMemberAction
     {
         public int Income { get; set; }
         public int Balance { get; set; }
@@ -28,24 +28,26 @@ namespace SchoolManager
             Console.WriteLine(Program.Principal.ToString());
         }
 
-        public void Pay()
+        public Action Pay => () =>
         {
-            //Util.NetworkDelay.PayEntity("Principal", Name, ref Balance, Income);
-        }
 
-        public void Add()
+            //Util.NetworkDelay.PayEntity("Principal", Name, ref Balance, Income);
+        };
+
+        public Action Add => () =>
         {
             Console.WriteLine("Please enter the Princpals information.");
             SchoolMember member = Util.ConsoleHelper.AcceptAttributes();
             Program.Principal.Name = member.Name;
             Program.Principal.Address = member.Address;
             Program.Principal.Phone = member.Phone;
-        }
+        };
 
-        public void RaiseComplaint()
+        public Action RaiseComplaint => () =>
         {
+
             Console.WriteLine("If you have a complaint please adress the receptionnist");
-        }
+        };
         public string ToString()
         {
             return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Balance: {Balance}";

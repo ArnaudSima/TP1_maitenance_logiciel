@@ -2,7 +2,7 @@
 
 namespace SchoolManager
 {
-    public class Teacher : SchoolMember, IPayroll, IMemberAction
+    public class Teacher : SchoolMember, IMemberAction
     {
         public string Subject;
         private int income;
@@ -19,31 +19,42 @@ namespace SchoolManager
         }
         public Teacher() { }
 
-        public void Display()
+        public Action Display => () =>
         {
             foreach (Teacher teacher in Program.Teachers)
             {
                 Console.WriteLine(teacher.ToString());
             }
-        }
+        };
 
-        public void Pay()
+        public Action Pay => () =>  
         {
             Util.NetworkDelay.PayEntity("Teacher", Name, ref balance, income);
-        }
+        };
 
-        public void Add()
+        public Action Add => () =>
         {
+
             SchoolMember member = Util.ConsoleHelper.AcceptAttributes();
             Teacher newTeacher = new Teacher(member.Name, member.Address, member.Phone);
             newTeacher.Subject = Util.ConsoleHelper.AskQuestion("Enter subject: ");
 
             Program.Teachers.Add(newTeacher);
-        }
+        };
 
-        public void RaiseComplaint()
+        public Action RaiseComplaint => () =>
         {
             Console.WriteLine("Teachers cannot receive complaints,adress the receptionnist");
+        };
+        public Dictionary<int, Action> ActionsPossible()
+        {
+            return new Dictionary<int, Action>()
+            {
+                { 1, Add },
+                { 2, Display },
+                { 3, Pay },
+                { 4, RaiseComplaint }
+            };
         }
         public string ToString()
         {
