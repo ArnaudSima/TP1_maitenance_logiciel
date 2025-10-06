@@ -1,6 +1,6 @@
 ﻿namespace SchoolManager
 {
-    public class SchoolMember
+    public class SchoolMember 
     {
         public string Name;
         public string Address;
@@ -18,5 +18,8 @@
             get { return phone; }
             set { phone = value; }
         }
+
+       
+       
     }
 }
