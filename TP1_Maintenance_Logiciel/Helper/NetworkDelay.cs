@@ -23,13 +23,5 @@ namespace Util
             Random rnd = new Random();
             Thread.Sleep(rnd.Next(minDelay, maxDelay));
         }
-
-        static public void PayEntity(string entity, string name, ref int balance, int income)
-        {
-            SimulateNetworkDelay();
-
-            balance += income;
-            System.Console.WriteLine($"Paid {entity}: {name}. Total Balance: {balance}");
-        }
     }
 }

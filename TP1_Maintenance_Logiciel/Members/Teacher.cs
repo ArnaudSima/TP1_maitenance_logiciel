@@ -5,18 +5,16 @@ namespace SchoolManager
 {
     public class Teacher : SchoolMember
     {
-        public string Subject;
-        private int income;
-        private int balance;
+        public string Subject { get; set; }
+        public int Balance { get; set; }
 
-        public Teacher(string name, string address, int phoneNum, string subject = "", int income = MembersSalary.TeacherSalary)
+        public Teacher(string name, string address, int phoneNum, string subject = "")
         {
             Name = name;
             Address = address;
             Phone = phoneNum;
             Subject = subject;
-            this.income = income;
-            balance = 0;
+            Balance = 0;
         }
         public Teacher() { }
 
@@ -30,7 +28,9 @@ namespace SchoolManager
 
         public override Action Pay => () =>  
         {
-            Util.NetworkDelay.PayEntity("Teacher", Name, ref balance, income);
+            NetworkDelay.SimulateNetworkDelay();
+            Balance += MembersSalary.TeacherSalary;
+            Console.WriteLine($"Paid Principal : {Name}. Total Balance: {Balance}");
         };
 
         public override Action Add => () =>
@@ -40,8 +40,7 @@ namespace SchoolManager
             string adresse = ConsoleHelper.AskQuestion("Address :");
             int phone = ConsoleHelper.AskQuestionInt("Phone number :");
             Teacher newTeacher = new Teacher(name, adresse, phone);
-            newTeacher.Subject = Util.ConsoleHelper.AskQuestion("Enter subject: ");
-
+            newTeacher.Subject = ConsoleHelper.AskQuestion("Enter subject: ");
             Program.Teachers.Add(newTeacher);
         };
 

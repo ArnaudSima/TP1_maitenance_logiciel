@@ -29,7 +29,19 @@
         public Action Undo => () => 
         {
             Console.WriteLine("Work in progress");
-        };    
+        };
+        public  bool MakeChoice(int choice)
+        {
+            if (ActionsPossible().TryGetValue(choice, out var value))
+            {
+                ActionsPossible()[choice]?.Invoke();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
+        }
     }
 }

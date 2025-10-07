@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Xml.Linq;
 using Util;
 
 namespace SchoolManager
@@ -31,8 +32,9 @@ namespace SchoolManager
 
         public override Action Pay => () =>
         {
-
-            //Util.NetworkDelay.PayEntity("Principal", Name, ref Balance, Income);
+            NetworkDelay.SimulateNetworkDelay();
+            Balance += MembersSalary.PrincipalSalary;
+            Console.WriteLine($"Paid Principal : {Name}. Total Balance: {Balance}");
         };
 
         public override Action Add => () =>

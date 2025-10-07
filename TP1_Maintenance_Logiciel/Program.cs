@@ -9,7 +9,7 @@ namespace SchoolManager
         static public List<Teacher> Teachers = new List<Teacher>();
         static public Principal Principal = new Principal();
         static public Receptionist Receptionist = new Receptionist();
-        static public Dictionary<int, IMemberAction> StrategiesMembers = new Dictionary<int, IMemberAction>();
+        static public Dictionary<int, SchoolMember> StrategiesMembers = new Dictionary<int, SchoolMember>();
         static public Action currentAction;
         //J'ai enleve le codesmell godclass en repartissant les methodes dans differentes classes
         private static void AddData()
@@ -31,7 +31,6 @@ namespace SchoolManager
         {
             //J'ai remplace le switch statement par un strategy pattern 
             StrategiesMembers = new Dictionary<int, SchoolMember> { { 1, new Principal() }, { 2, new Teacher() }, { 3, new Student() }, { 4, new Receptionist() } };
-            
             // Just for manual testing purposes.
             AddData();
             Console.WriteLine("-------------- Welcome ---------------\n");
@@ -48,7 +47,7 @@ namespace SchoolManager
 
                 if (StrategiesMembers.TryGetValue(choiceMember, out var action))
                 {
-                    flag = Util.ConsoleHelper.MakeChoice(choiceAction, StrategiesMembers[choiceMember]);
+                    flag = StrategiesMembers[choiceMember].MakeChoice(choiceAction);
                 }
                 else
                 {
