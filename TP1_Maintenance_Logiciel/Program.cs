@@ -10,7 +10,6 @@ namespace SchoolManager
         static public Principal Principal = new Principal();
         static public Receptionist Receptionist = new Receptionist();
         static public Dictionary<int, SchoolMember> StrategiesMembers = new Dictionary<int, SchoolMember>();
-        static public Action currentAction;
         //J'ai enleve le codesmell godclass en repartissant les methodes dans differentes classes
         private static void AddData()
         {

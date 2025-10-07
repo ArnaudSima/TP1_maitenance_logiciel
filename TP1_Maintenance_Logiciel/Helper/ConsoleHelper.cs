@@ -6,8 +6,8 @@ namespace Util
     {
         static public string AskQuestion(string question)
         {
-            System.Console.Write(question);
-            return System.Console.ReadLine();
+            Console.Write(question);
+            return Console.ReadLine();
         }
         enum SchoolMemberType
         {
@@ -18,11 +18,11 @@ namespace Util
         }
         static public int AskQuestionInt(string question)
         {
-            System.Console.Write(question);
+            Console.Write(question);
             bool state = int.TryParse(Console.ReadLine(), out int result);
             while (!state)
             {
-                System.Console.Write("Invalid input. Please try again: ");
+                Console.Write("Invalid input. Please try again: ");
                 state = int.TryParse(Console.ReadLine(), out result);
             }
 
