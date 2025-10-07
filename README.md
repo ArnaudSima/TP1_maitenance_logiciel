@@ -144,5 +144,14 @@ namespace SchoolManager
 }
 ```
 
+```C#
+        public override Action Pay => () =>
+        {
+            NetworkDelay.SimulateNetworkDelay();
+            Balance += MembersSalary.PrincipalSalary;
+            Console.WriteLine($"Paid Principal : {Name}. Total Balance: {Balance}");
+        };
+```
+
 
 
