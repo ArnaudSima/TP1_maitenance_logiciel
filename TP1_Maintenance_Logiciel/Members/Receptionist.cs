@@ -13,7 +13,7 @@ namespace SchoolManager
         public string ComplaintRaised { get; set; }
     }
 
-    public class Receptionist : SchoolMember, IMemberAction
+    public class Receptionist : SchoolMember
     {
         private int Income;
         private int Balance;
@@ -38,19 +38,19 @@ namespace SchoolManager
 
         }
 
-        public Action Display => () =>
+        public override Action Display => () =>
         {
 
             Console.WriteLine(Program.Receptionist.ToString());
         };
 
-        public Action Pay => () =>
+        public override Action Pay => () =>
         {
 
             //Util.NetworkDelay.PayEntity("Receptionist", Name, ref Balance, Income);
         };
 
-        public Action RaiseComplaint => () =>
+        public override Action RaiseComplaint => () =>
         {
 
             Complaint complaint = new Complaint();
@@ -60,7 +60,7 @@ namespace SchoolManager
             Console.WriteLine($"---------\nComplaint Time: {complaint.ComplaintTime.ToLongDateString()}, {complaint.ComplaintTime.ToLongTimeString()}");
             Console.WriteLine($"Complaint Raised: {complaint.ComplaintRaised}\n---------");
         };
-        public Action Add => () =>
+        public override Action Add => () =>
         {
 
             Console.WriteLine("There can only be one receptionnist!");

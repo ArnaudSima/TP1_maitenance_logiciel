@@ -30,7 +30,7 @@ namespace SchoolManager
         public static async Task Main(string[] args)
         {
             //J'ai remplace le switch statement par un strategy pattern 
-            StrategiesMembers = new Dictionary<int, IMemberAction> { { 1, new Principal() }, { 2, new Teacher() }, { 3, new Student() }, { 4, new Receptionist() } };
+            StrategiesMembers = new Dictionary<int, SchoolMember> { { 1, new Principal() }, { 2, new Teacher() }, { 3, new Student() }, { 4, new Receptionist() } };
             
             // Just for manual testing purposes.
             AddData();
@@ -38,7 +38,6 @@ namespace SchoolManager
             bool flag = true;
             while (flag)
             {
-
                 int choiceAction = Util.ConsoleHelper.AcceptChoices();
                 if (choiceAction > 5)
                 {

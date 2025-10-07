@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using Util;
 
 namespace SchoolManager
 {
-    public class Principal : SchoolMember, IMemberAction
+    public class Principal : SchoolMember
     {
         public int Income { get; set; }
         public int Balance { get; set; }
@@ -23,27 +24,26 @@ namespace SchoolManager
             Balance = 0;
         }
        
-        public void Display()
+        public override Action Display => () => 
         {
             Console.WriteLine(Program.Principal.ToString());
-        }
+        };
 
-        public Action Pay => () =>
+        public override Action Pay => () =>
         {
 
             //Util.NetworkDelay.PayEntity("Principal", Name, ref Balance, Income);
         };
 
-        public Action Add => () =>
+        public override Action Add => () =>
         {
             Console.WriteLine("Please enter the Princpals information.");
-            SchoolMember member = Util.ConsoleHelper.AcceptAttributes();
-            Program.Principal.Name = member.Name;
-            Program.Principal.Address = member.Address;
-            Program.Principal.Phone = member.Phone;
+            Program.Principal.Name = ConsoleHelper.AskQuestion("Enter name: ");
+            Program.Principal.Address = ConsoleHelper.AskQuestion("Enter Address: ");
+            Program.Principal.Phone = Int32.Parse(ConsoleHelper.AskQuestion("Enter Phone: "));
         };
 
-        public Action RaiseComplaint => () =>
+        public override Action RaiseComplaint => () =>
         {
 
             Console.WriteLine("If you have a complaint please adress the receptionnist");

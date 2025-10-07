@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Intrinsics.X86;
+using Util;
 
 namespace SchoolManager
 {
-    public class Student : SchoolMember, IMemberAction
+    public class Student : SchoolMember
     {
         public int Grade{ get; set; }
         public double AverageGrade { get; set; }
@@ -17,7 +18,18 @@ namespace SchoolManager
             Grade = grade;
         }
 
-        public Action Display => () =>
+        public static double averageGrade()
+        {
+            double avg = 0;
+            foreach (Student student in Program.Students)
+            {
+                avg += student.Grade;
+            }
+
+            return avg / Program.Students.Count;
+        }
+
+        public override Action Display => () =>
         {
             foreach (Student student in Program.Students)
             {
@@ -26,49 +38,30 @@ namespace SchoolManager
 
         };
 
-        public static double averageGrade()
-        {
-            double avg = 0;
-            foreach (Student student in Program.Students)
-            {
-                avg += student.Grade;
-            }
-            
-            return avg / Program.Students.Count;
-        }
-
-        public Action Add => () =>
+        public override Action Add => () =>
         {
 
-            SchoolMember member = Util.ConsoleHelper.AcceptAttributes();
-            Student newStudent = new Student(member.Name, member.Address, member.Phone);
-            newStudent.Grade = Util.ConsoleHelper.AskQuestionInt("Enter grade: ");
+            string name = ConsoleHelper.AskQuestion("Name :");
+            string adresse = ConsoleHelper.AskQuestion("Address :");
+            int phone = ConsoleHelper.AskQuestionInt("Phone number :");
+            Student newStudent = new Student(name,adresse,phone);
+            newStudent.Grade = ConsoleHelper.AskQuestionInt("Enter grade: ");
             Program.Students.Add(newStudent);
         };
 
-        public Action Pay => () =>
+        public override Action Pay => () =>
         {
 
             Console.WriteLine("A student cannot receive a pay");
         };
 
-        public Action RaiseComplaint => () => 
+        public override Action RaiseComplaint => () => 
         {
            Console.WriteLine("Students cannot receive complaints,adress the receptionnist");
         };
         public string ToString()
         {
             return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Grade: {Grade}";
-        }
-        public Dictionary<int, Action> ActionsPossible()
-        {
-            return new Dictionary<int, Action>()
-            {
-                { 1, Add },
-                { 2, Display },
-                { 3, Pay },
-                { 4, RaiseComplaint }
-            };
         }
         public static async Task ShowPerformance()
         {

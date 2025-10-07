@@ -1,8 +1,9 @@
 ﻿using System;
+using Util;
 
 namespace SchoolManager
 {
-    public class Teacher : SchoolMember, IMemberAction
+    public class Teacher : SchoolMember
     {
         public string Subject;
         private int income;
@@ -19,7 +20,7 @@ namespace SchoolManager
         }
         public Teacher() { }
 
-        public Action Display => () =>
+        public override Action Display => () =>
         {
             foreach (Teacher teacher in Program.Teachers)
             {
@@ -27,35 +28,28 @@ namespace SchoolManager
             }
         };
 
-        public Action Pay => () =>  
+        public override Action Pay => () =>  
         {
             Util.NetworkDelay.PayEntity("Teacher", Name, ref balance, income);
         };
 
-        public Action Add => () =>
+        public override Action Add => () =>
         {
 
-            SchoolMember member = Util.ConsoleHelper.AcceptAttributes();
-            Teacher newTeacher = new Teacher(member.Name, member.Address, member.Phone);
+            string name = ConsoleHelper.AskQuestion("Name :");
+            string adresse = ConsoleHelper.AskQuestion("Address :");
+            int phone = ConsoleHelper.AskQuestionInt("Phone number :");
+            Teacher newTeacher = new Teacher(name, adresse, phone);
             newTeacher.Subject = Util.ConsoleHelper.AskQuestion("Enter subject: ");
 
             Program.Teachers.Add(newTeacher);
         };
 
-        public Action RaiseComplaint => () =>
+        public override Action RaiseComplaint => () =>
         {
             Console.WriteLine("Teachers cannot receive complaints,adress the receptionnist");
         };
-        public Dictionary<int, Action> ActionsPossible()
-        {
-            return new Dictionary<int, Action>()
-            {
-                { 1, Add },
-                { 2, Display },
-                { 3, Pay },
-                { 4, RaiseComplaint }
-            };
-        }
+
         public string ToString()
         {
             return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Subject: {Subject}";

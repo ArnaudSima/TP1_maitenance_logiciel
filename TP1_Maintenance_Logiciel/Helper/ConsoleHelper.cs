@@ -28,39 +28,18 @@ namespace Util
 
             return result;
         }
-        public static bool MakeChoice(int choice, IMemberAction member)
+        public static bool MakeChoice(int choice, SchoolMember member)
         {
-            member.ActionsPossible()[choice]?.Invoke();
-            return false;
-            //if (choice == 1)
-            //{
-            //    member.Add();
-            //    return true;
-            //}
-            //else if (choice == 2)
-            //{
-            //    member.Display();
-            //    return true;
-            //}
-            //else if (choice == 3)
-            //{
-            //    member.Pay();
-            //    return true;
-            //}
-            //else if (choice == 4)
-            //{
-            //    member.RaiseComplaint();
-            //    return true;
-            //}
-            //else if(choice == 5)
-            //{
-            //    Console.WriteLine("Work in progress...");
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
+            if(member.ActionsPossible().TryGetValue(choice, out var value))
+            {
+                member.ActionsPossible()[choice]?.Invoke();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
         public static int AcceptChoices()
         {
@@ -72,14 +51,6 @@ namespace Util
             int x = AskQuestionInt("\n1. Principal\n2. Teacher\n3. Student\n4. Receptionist\nPlease enter the member type: ");
             return Enum.IsDefined(typeof(SchoolMemberType), x) ? x : -1;
         }
-        public static SchoolMember AcceptAttributes()
-        {
-            SchoolMember member = new SchoolMember();
-            member.Name = AskQuestion("Enter name: ");
-            member.Address = AskQuestion("Enter address: ");
-            member.Phone = AskQuestionInt("Enter phone number: ");
-
-            return member;
-        }
+        
     }
 }
