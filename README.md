@@ -143,7 +143,7 @@ namespace SchoolManager
     }
 }
 ```
-
+Correction du codesmell Long-parameter-list-et-man-in-the-middle-dans-NetworkDelay-#26
 ```C#
         public override Action Pay => () =>
         {
