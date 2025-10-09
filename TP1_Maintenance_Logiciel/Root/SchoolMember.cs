@@ -34,7 +34,7 @@
         {
             if (ActionsPossible().TryGetValue(choice, out var value))
             {
-                ActionsPossible()[choice]?.Invoke();
+                ActionsPossible()[choice].Invoke();
                 return true;
             }
             else
