@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Intrinsics.X86;
+using TP1_Maintenance_Logiciel.Helper;
+using TP1_Maintenance_Logiciel.Members;
 using Util;
 
 namespace SchoolManager
@@ -47,6 +49,12 @@ namespace SchoolManager
             Student newStudent = new Student(name,adresse,phone);
             newStudent.Grade = ConsoleHelper.AskQuestionInt("Enter grade: ");
             Program.Students.Add(newStudent);
+            UndoEntry entry = new UndoEntry();
+            entry.Undo = () =>
+            {
+               Program.Students.Remove(newStudent);
+            };
+            UndoManager.Push(entry);
         };
 
         public override Action Pay => () =>
