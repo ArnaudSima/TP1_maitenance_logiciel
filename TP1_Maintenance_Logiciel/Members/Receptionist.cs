@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Util;
 
 namespace SchoolManager
 {
@@ -13,10 +14,10 @@ namespace SchoolManager
         public string ComplaintRaised { get; set; }
     }
 
-    public class Receptionist : SchoolMember, IPayroll, IMemberAction
+    public class Receptionist : SchoolMember
     {
-        private int Income;
-        private int Balance;
+        private int Income { get; set; }
+        public int Balance { get; set; }
         public event EventHandler<Complaint> ComplaintRaised;
 
         public Receptionist(int income = 10000) 
@@ -38,43 +39,38 @@ namespace SchoolManager
 
         }
 
-        public void Display()
+        public override Action Display => () =>
         {
             Console.WriteLine(Program.Receptionist.ToString());
-        }
+        };
 
-        public void Pay()
+        public override Action Pay => () =>
         {
-            Util.NetworkDelay.PayEntity("Receptionist", Name, ref Balance, Income);
-        }
 
-        public void HandleComplaint()
+            NetworkDelay.SimulateNetworkDelay();
+            Balance += MembersSalary.ReceptionnistSalary;
+            Console.WriteLine($"Paid Principal : {Name}. Total Balance: {Balance}");
+        };
+
+        public override Action RaiseComplaint => () =>
         {
             Complaint complaint = new Complaint();
             complaint.ComplaintTime = DateTime.Now;
-            complaint.ComplaintRaised = Util.ConsoleHelper.AskQuestion("Please enter your Complaint: ");
-            HandleComplaintRaised(complaint);
-        }
-        private  void HandleComplaintRaised(Complaint complaint)
-        {
+            complaint.ComplaintRaised = ConsoleHelper.AskQuestion("Please enter your Complaint: ");
             Console.WriteLine("\nThis is a confirmation that we received your complaint. The details are as follows:");
             Console.WriteLine($"---------\nComplaint Time: {complaint.ComplaintTime.ToLongDateString()}, {complaint.ComplaintTime.ToLongTimeString()}");
             Console.WriteLine($"Complaint Raised: {complaint.ComplaintRaised}\n---------");
-        }
-        public void Add()
+        };
+        public override Action Add => () =>
         {
-            Console.WriteLine("There can only be one receptionnist!");
-        }
 
-        public void RaiseComplaint()
-        {
-            HandleComplaint();
-        }
+            Console.WriteLine("There can only be one receptionnist!");
+        };
+
 
         private string ToString()
         {
             return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Income: ${Income}, Balance : ${Balance}";
         }
-
     }
 }
