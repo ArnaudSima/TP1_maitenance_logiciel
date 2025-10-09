@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Threading.Tasks;
 namespace SchoolManager
 {
     public class Program
     {
+        static public bool Flag;
         static public List<Student> Students = new List<Student>();
         static public List<Teacher> Teachers = new List<Teacher>();
         static public Principal Principal = new Principal();
@@ -33,25 +35,23 @@ namespace SchoolManager
             // Just for manual testing purposes.
             AddData();
             Console.WriteLine("-------------- Welcome ---------------\n");
-            bool flag = true;
-            while (flag)
+            Flag = true;
+            while (Flag)
             {
                 int choiceAction = Util.ConsoleHelper.AcceptChoices();
-                if (choiceAction > 5)
-                {
-                    flag = false;
-                    break;
-                }
+                // if (choiceAction > 6)
+                // {
+                //     Flag = false;
+                //     break;
+                // }
+                
                 int choiceMember = Util.ConsoleHelper.AcceptMemberType();
 
                 if (StrategiesMembers.TryGetValue(choiceMember, out var action))
                 {
-                    flag = StrategiesMembers[choiceMember].MakeChoice(choiceAction);
+                    StrategiesMembers[choiceMember].MakeChoice(choiceAction);
                 }
-                else
-                {
-                    flag = false;
-                }
+                
             }
 
             Console.WriteLine("\n-------------- Bye --------------");

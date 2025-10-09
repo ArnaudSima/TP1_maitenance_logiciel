@@ -20,7 +20,7 @@
         }
         public Dictionary<int, Action> ActionsPossible()
         {
-            return new Dictionary<int, Action> { {1,Add }, {2,Display }, {3,Pay }, {4,RaiseComplaint},{5, Undo} }; 
+            return new Dictionary<int, Action> { {1,Add }, {2,Display }, {3,Pay }, {4,RaiseComplaint},{5, Undo}, {6,Quit} }; 
         }
         public abstract Action Add { get; }
         public abstract Action Display { get; }
@@ -30,17 +30,19 @@
         {
             Console.WriteLine("Work in progress");
         };
-        public  bool MakeChoice(int choice)
+        public Action Quit => () =>
+        {
+            Console.WriteLine("Quit the App");
+            Program.Flag = false;
+        };
+        public  void MakeChoice(int choice)
         {
             if (ActionsPossible().TryGetValue(choice, out var value))
             {
                 ActionsPossible()[choice]?.Invoke();
-                return true;
+                
             }
-            else
-            {
-                return false;
-            }
+            
 
         }
     }

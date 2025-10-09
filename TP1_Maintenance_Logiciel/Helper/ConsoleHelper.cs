@@ -31,7 +31,7 @@ namespace Util
 
         public static int AcceptChoices()
         {
-            return AskQuestionInt("\n1. Add\n2. display\n3. Pay\n4. Raise Complaint\n5. Student Performance\nPlease enter the action type: ");
+            return AskQuestionInt("\n1. Add\n2. display\n3. Pay\n4. Raise Complaint\n5. Student Performance\n6. Quit the App\nPlease enter the action type: ");
         }
 
         public static int AcceptMemberType()
