@@ -24,7 +24,7 @@ namespace SchoolManager
                 Students.Add(new Student(i.ToString(), i.ToString(), i, i));
                 Teachers.Add(new Teacher(i.ToString(), i.ToString(), i));
             }
-          
+
 
         }
 
@@ -36,22 +36,35 @@ namespace SchoolManager
             AddData();
             Console.WriteLine("-------------- Welcome ---------------\n");
             Flag = true;
+
+            //default Member to access Quit()
+            SchoolMember defaultMember = new Student();
             while (Flag)
             {
                 int choiceAction = Util.ConsoleHelper.AcceptChoices();
-                // if (choiceAction > 6)
-                // {
-                //     Flag = false;
-                //     break;
-                // }
-                
-                int choiceMember = Util.ConsoleHelper.AcceptMemberType();
-
-                if (StrategiesMembers.TryGetValue(choiceMember, out var action))
+                if (choiceAction < 1 || choiceAction > 5)
                 {
-                    StrategiesMembers[choiceMember].MakeChoice(choiceAction);
+                    defaultMember.Quit.Invoke();
+                    break;
                 }
-                
+                else
+                {
+                    int choiceMember = Util.ConsoleHelper.AcceptMemberType();
+
+                    if (StrategiesMembers.TryGetValue(choiceMember, out var action))
+                    {
+                        StrategiesMembers[choiceMember].MakeChoice(choiceAction);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid member type.");
+                        defaultMember.Quit.Invoke();
+                        break;
+                    }
+                }
+
+
+
             }
 
             Console.WriteLine("\n-------------- Bye --------------");
