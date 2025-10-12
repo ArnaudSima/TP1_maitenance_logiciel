@@ -6,10 +6,10 @@ public class UnitTest1
     [Fact]
     public void AcceptMemberType_DeStudent_WithConsoleTyping()
     {
-        Program.StrategiesMembers = new Dictionary<int, SchoolMember> { 
-            { 1, new Principal() }, 
-            { 2, new Teacher() }, 
-            { 3, new Student() }, 
+        Program.StrategiesMembers = new Dictionary<int, SchoolMember> {
+            { 1, new Principal() },
+            { 2, new Teacher() },
+            { 3, new Student() },
             { 4, new Receptionist() } };
 
         Program.Students.Clear();
@@ -26,12 +26,12 @@ public class UnitTest1
         var originalIn = Console.In;
         Console.SetIn(new StringReader(simulatedInput));
         bool result = Program.StrategiesMembers[choiceAddStudent].MakeChoice(choiceAction);
-        
-        
+
+
         Assert.True(result);
 
         Assert.Single(Program.Students);
-        
+
         var student = Program.Students[0];
         Assert.Equal(name, student.Name);
         Assert.Equal(address, student.Address);
