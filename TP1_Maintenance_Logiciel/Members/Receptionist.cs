@@ -59,6 +59,7 @@ namespace SchoolManager
             };
             entry.Description = $"Billing the receptionnist : {ToString}";
             UndoManager.Push(entry);
+            Program.Flag = true;
         };
 
         public override Action RaiseComplaint => () =>
@@ -69,6 +70,7 @@ namespace SchoolManager
             Console.WriteLine("\nThis is a confirmation that we received your complaint. The details are as follows:");
             Console.WriteLine($"---------\nComplaint Time: {complaint.ComplaintTime.ToLongDateString()}, {complaint.ComplaintTime.ToLongTimeString()}");
             Console.WriteLine($"Complaint Raised: {complaint.ComplaintRaised}\n---------");
+            Program.Flag = true;
         };
         public override Action Add => () =>
         {
@@ -78,13 +80,13 @@ namespace SchoolManager
             {
                 Program.Receptionist = new Receptionist(Program.Receptionist.Name, Program.Receptionist.Address, Program.Receptionist.Phone);
             };
-            entry.Description = $"Reverting to the receptionnist : {ToString}";
+            entry.Description = $"Reverting to the receptionnist : {ToString()}";
             UndoManager.Push(entry);
             Console.WriteLine("Please enter the Receptionist information.");
             Program.Receptionist.Name = ConsoleHelper.AskQuestion("Enter name: ");
             Program.Receptionist.Address = ConsoleHelper.AskQuestion("Enter Address: ");
             Program.Receptionist.Phone = Int32.Parse(ConsoleHelper.AskQuestion("Enter Phone: "));
-
+            Program.Flag = true;
         };
 
 

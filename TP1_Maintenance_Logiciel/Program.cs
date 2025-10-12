@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TP1_Maintenance_Logiciel.Helper;
 namespace SchoolManager
 {
     public class Program
@@ -11,6 +12,7 @@ namespace SchoolManager
         static public Receptionist Receptionist = new Receptionist();
         static public Dictionary<int, SchoolMember> StrategiesMembers = new Dictionary<int, SchoolMember>();
         static public Stack<Action> History = new Stack<Action>();
+        static public bool Flag = true;
         //J'ai enleve le codesmell godclass en repartissant les methodes dans differentes classes
         private static void AddData()
         {
@@ -34,24 +36,20 @@ namespace SchoolManager
             // Just for manual testing purposes.
             AddData();
             Console.WriteLine("-------------- Welcome ---------------\n");
-            bool flag = true;
-            while (flag)
+            while (Flag)
             {
                 int choiceAction = Util.ConsoleHelper.AcceptChoices();
-                if ()
+
+                int choiceMember = 1;
+                if (choiceAction <= 5)
                 {
-                    int choiceMember = Util.ConsoleHelper.AcceptMemberType();
-
+                   choiceMember = Util.ConsoleHelper.AcceptMemberType();
                 }
-
                 if (StrategiesMembers.TryGetValue(choiceMember, out var action))
                 {
-                    flag = StrategiesMembers[choiceMember].MakeChoice(choiceAction);
+                     StrategiesMembers[choiceMember].MakeChoice(choiceAction);
                 }
-                else
-                {
-                    flag = false;
-                }
+                
             }
 
             Console.WriteLine("\n-------------- Bye --------------");

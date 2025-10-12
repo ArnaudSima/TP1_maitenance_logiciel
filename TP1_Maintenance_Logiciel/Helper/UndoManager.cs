@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,10 +17,16 @@ namespace TP1_Maintenance_Logiciel.Helper
         }
         public static Action Undo = () =>
         {
-
+            if (_history.Count == 0)
+            {
+                Console.WriteLine("\nThe history is empty!");
+                Program.Flag = true;
+                return;
+            }
             UndoEntry undoEntry = _history.Pop();
             undoEntry.Undo();
             Console.WriteLine(undoEntry.Description.ToString());
+            Program.Flag = true;
         };
     }
 }

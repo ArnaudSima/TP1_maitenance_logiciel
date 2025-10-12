@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
 using System.Xml.Linq;
 using TP1_Maintenance_Logiciel.Helper;
 using TP1_Maintenance_Logiciel.Members;
@@ -29,6 +30,7 @@ namespace SchoolManager
         public override Action Display => () => 
         {
             Console.WriteLine(Program.Principal.ToString());
+            Program.Flag = true;
         };
 
         public override Action Pay => () =>
@@ -41,9 +43,9 @@ namespace SchoolManager
             {
                 Program.Principal.Balance -= MembersSalary.PrincipalSalary;
             };
-            entry.Description = $"Billing the principal : {ToString} ";
+            entry.Description = $"Billing the principal : {ToString()} ";
             UndoManager.Push(entry);
-
+            Program.Flag = true;
         };
 
         public override Action Add => () =>
@@ -53,19 +55,20 @@ namespace SchoolManager
             {
                 Program.Principal = new Principal(Program.Principal.Name, Program.Principal.Address, Program.Principal.Phone);
             };
-            entry.Description = $"Removing the principal : {ToString}";
+            entry.Description = $"Removing the principal : {ToString()}";
             UndoManager.Push(entry);
             Console.WriteLine("Please enter the Principals information.");
             Program.Principal.Name = ConsoleHelper.AskQuestion("Enter name: ");
             Program.Principal.Address = ConsoleHelper.AskQuestion("Enter Address: ");
             Program.Principal.Phone = Int32.Parse(ConsoleHelper.AskQuestion("Enter Phone: "));
-           
+            Program.Flag = true;
         };
 
         public override Action RaiseComplaint => () =>
         {
 
             Console.WriteLine("If you have a complaint please adress the receptionnist");
+            Program.Flag = true;
         };
         public string ToString()
         {

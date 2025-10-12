@@ -26,6 +26,7 @@ namespace SchoolManager
             {
                 Console.WriteLine(teacher.ToString());
             }
+            Program.Flag = true;
         };
 
         public override Action Pay => () =>  
@@ -46,6 +47,7 @@ namespace SchoolManager
             };
             entry.Description = "Billing every teacher";
             UndoManager.Push(entry);
+            Program.Flag = true;
         };
 
         public override Action Add => () =>
@@ -62,13 +64,15 @@ namespace SchoolManager
             {
                 Program.Teachers.Remove(newTeacher);
             };
-            entry.Description = $"Removing the teacher {newTeacher.ToString}";
+            entry.Description = $"Removing the teacher {newTeacher.ToString()}";
             UndoManager.Push(entry);
+            Program.Flag = true;
         };
 
         public override Action RaiseComplaint => () =>
         {
             Console.WriteLine("Teachers cannot receive complaints,adress the receptionnist");
+            Program.Flag = true;
         };
 
         public string ToString()
