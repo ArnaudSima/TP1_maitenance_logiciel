@@ -39,4 +39,41 @@ public class UnitTest1
         Assert.Equal(int.Parse(grade), student.Grade);
         Console.SetIn(originalIn);
     }
+
+    [Fact]
+    public void AcceptMemberType_DeTeacher_WithConsoleTyping()
+    {
+        Program.StrategiesMembers = new Dictionary<int, SchoolMember> { 
+            { 1, new Principal() }, 
+            { 2, new Teacher() }, 
+            { 3, new Student() }, 
+            { 4, new Receptionist() } };
+
+        Program.Teachers.Clear();
+
+        string name = "Frank";
+        string address = "5105 avenue est";
+        string phone = "687";
+        string subject = "French";
+
+        int choiceAddTeacher = 2;
+        int choiceAction = 1;
+
+        string simulatedInput = $"{name}\n{address}\n{phone}\n{subject}";
+        var originalIn = Console.In;
+        Console.SetIn(new StringReader(simulatedInput));
+        bool result = Program.StrategiesMembers[choiceAddTeacher].MakeChoice(choiceAction);
+        
+        
+        Assert.True(result);
+
+        Assert.Single(Program.Teachers);
+        
+        var teacher = Program.Teachers[0];
+        Assert.Equal(name, teacher.Name);
+        Assert.Equal(address, teacher.Address);
+        Assert.Equal(int.Parse(phone), teacher.Phone);
+        Assert.Equal(subject, teacher.Subject);
+        Console.SetIn(originalIn);
+    }
 }
