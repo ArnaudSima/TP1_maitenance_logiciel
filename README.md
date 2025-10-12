@@ -93,4 +93,65 @@ public static async Task Main(string[] args)
         }
     }
 ```
+Correction du codesmell du issue Fix-switch-case-des-sous-actions-#16
+```C#
+namespace SchoolManager
+{
+     public abstract class SchoolMember 
+    {
+        public string Name;
+        public string Address;
+        private int phone;
+
+        public SchoolMember(string name = "", string address = "", int phone = 0)
+        {
+            Name = name;
+            Address = address;
+            this.phone = phone;
+        }
+
+        public int Phone
+        {
+            get { return phone; }
+            set { phone = value; }
+        }
+        public Dictionary<int, Action> ActionsPossible()
+        {
+            return new Dictionary<int, Action> { {1,Add }, {2,Display }, {3,Pay }, {4,RaiseComplaint},{5, Undo} }; 
+        }
+        public abstract Action Add { get; }
+        public abstract Action Display { get; }
+        public abstract Action Pay { get; }
+        public abstract Action RaiseComplaint { get; }
+        public Action Undo => () => 
+        {
+            Console.WriteLine("Work in progress");
+        };
+        public  bool MakeChoice(int choice)
+        {
+            if (ActionsPossible().TryGetValue(choice, out var value))
+            {
+                ActionsPossible()[choice]?.Invoke();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+    }
+}
+```
+Correction du codesmell Long-parameter-list-et-man-in-the-middle-dans-NetworkDelay-#26
+```C#
+        public override Action Pay => () =>
+        {
+            NetworkDelay.SimulateNetworkDelay();
+            Balance += MembersSalary.PrincipalSalary;
+            Console.WriteLine($"Paid Principal : {Name}. Total Balance: {Balance}");
+        };
+```
+
+
 

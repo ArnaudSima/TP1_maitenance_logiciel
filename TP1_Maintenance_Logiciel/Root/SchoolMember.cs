@@ -31,6 +31,7 @@ namespace SchoolManager
             {
                 avg += student.Grade;
             }
+            
 
             Console.WriteLine($"This is the current student performance : \n{avg / Program.Students.Count}");
             Program.Flag = true;

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Threading.Tasks;
 using TP1_Maintenance_Logiciel.Helper;
 namespace SchoolManager
 {
     public class Program
     {
+        static public bool Flag;
         static public List<Student> Students = new List<Student>();
         static public List<Teacher> Teachers = new List<Teacher>();
         static public Principal Principal = new Principal();
@@ -25,7 +27,7 @@ namespace SchoolManager
                 Students.Add(new Student(i.ToString(), i.ToString(), i, i));
                 Teachers.Add(new Teacher(i.ToString(), i.ToString(), i));
             }
-          
+
 
         }
 
