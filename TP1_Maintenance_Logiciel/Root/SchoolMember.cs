@@ -4,8 +4,8 @@ namespace SchoolManager
 {
      public abstract class SchoolMember 
     {
-        public string Name;
-        public string Address;
+        public string Name { get; set; }
+        public string Address { get; set; }
         public int Phone { get; set; }
 
         public SchoolMember(string name = "", string address = "", int phone = 0)
@@ -26,14 +26,12 @@ namespace SchoolManager
         public abstract Action RaiseComplaint { get; }
         public Action StudentPerformance = () => 
         {
-            double avg = 0;
+            double sum = 0;
             foreach (Student student in Program.Students)
             {
-                avg += student.Grade;
+                sum += student.Grade;
             }
-            
-
-            Console.WriteLine($"This is the current student performance : \n{avg / Program.Students.Count}");
+            Console.WriteLine($"This is the current student performance : \n{sum / Program.Students.Count}");
             Program.Flag = true;
         };
         public Action Quit = () => { 
