@@ -76,14 +76,14 @@ public class UnitTest1
         Assert.Equal(subject, teacher.Subject);
         Console.SetIn(originalIn);
     }
-    
+
     [Fact]
     public void AcceptMemberType_DePrincipal_WithConsoleTyping()
     {
-        Program.StrategiesMembers = new Dictionary<int, SchoolMember> { 
-            { 1, new Principal() }, 
-            { 2, new Teacher() }, 
-            { 3, new Student() }, 
+        Program.StrategiesMembers = new Dictionary<int, SchoolMember> {
+            { 1, new Principal() },
+            { 2, new Teacher() },
+            { 3, new Student() },
             { 4, new Receptionist() } };
 
         string name = "Arnaud";
@@ -97,8 +97,8 @@ public class UnitTest1
         var originalIn = Console.In;
         Console.SetIn(new StringReader(simulatedInput));
         bool result = Program.StrategiesMembers[choiceAddPrincipal].MakeChoice(choiceAction);
-        
-        
+
+
         Assert.True(result);
 
         var principal = Program.Principal;
@@ -106,5 +106,36 @@ public class UnitTest1
         Assert.Equal(address, principal.Address);
         Assert.Equal(int.Parse(phone), principal.Phone);
         Console.SetIn(originalIn);
+    }
+    
+    [Fact]
+    public void AcceptMemberType_DeReceptionist_WithConsoleTyping()
+    {
+        Program.StrategiesMembers = new Dictionary<int, SchoolMember> { 
+            { 1, new Principal() }, 
+            { 2, new Teacher() }, 
+            { 3, new Student() }, 
+            { 4, new Receptionist() } };
+
+        string name = "Béattrice";
+        string address = "100 Levancour";
+        string phone = "712";
+
+        int choiceAddPrincipal = 4;
+        int choiceAction = 1;
+
+        /*string simulatedInput = $"{name}\n{address}\n{phone}";
+        var originalIn = Console.In;
+        Console.SetIn(new StringReader(simulatedInput));
+        bool result = Program.StrategiesMembers[choiceAddPrincipal].MakeChoice(choiceAction);
+        
+        
+        Assert.True(result);
+
+        var receptionist = Program.Receptionist;
+        Assert.Equal(name, receptionist.Name);
+        Assert.Equal(address, receptionist.Address);
+        Assert.Equal(int.Parse(phone), receptionist.Phone);
+        Console.SetIn(originalIn);*/
     }
 }
