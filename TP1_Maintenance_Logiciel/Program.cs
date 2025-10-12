@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Threading.Tasks;
 namespace SchoolManager
 {
     public class Program
     {
+        static public bool Flag;
         static public List<Student> Students = new List<Student>();
         static public List<Teacher> Teachers = new List<Teacher>();
         static public Principal Principal = new Principal();
@@ -22,7 +24,7 @@ namespace SchoolManager
                 Students.Add(new Student(i.ToString(), i.ToString(), i, i));
                 Teachers.Add(new Teacher(i.ToString(), i.ToString(), i));
             }
-          
+
 
         }
 
@@ -33,25 +35,36 @@ namespace SchoolManager
             // Just for manual testing purposes.
             AddData();
             Console.WriteLine("-------------- Welcome ---------------\n");
-            bool flag = true;
-            while (flag)
+            Flag = true;
+
+            //default Member to access Quit()
+            SchoolMember defaultMember = new Student();
+            while (Flag)
             {
                 int choiceAction = Util.ConsoleHelper.AcceptChoices();
-                if (choiceAction > 5)
+                if (choiceAction < 1 || choiceAction > 5)
                 {
-                    flag = false;
+                    defaultMember.Quit.Invoke();
                     break;
-                }
-                int choiceMember = Util.ConsoleHelper.AcceptMemberType();
-
-                if (StrategiesMembers.TryGetValue(choiceMember, out var action))
-                {
-                    flag = StrategiesMembers[choiceMember].MakeChoice(choiceAction);
                 }
                 else
                 {
-                    flag = false;
+                    int choiceMember = Util.ConsoleHelper.AcceptMemberType();
+
+                    if (StrategiesMembers.TryGetValue(choiceMember, out var action))
+                    {
+                        StrategiesMembers[choiceMember].MakeChoice(choiceAction);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid member type.");
+                        defaultMember.Quit.Invoke();
+                        break;
+                    }
                 }
+
+
+
             }
 
             Console.WriteLine("\n-------------- Bye --------------");
