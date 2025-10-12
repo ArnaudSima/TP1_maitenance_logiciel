@@ -38,12 +38,11 @@ namespace SchoolManager
             while (flag)
             {
                 int choiceAction = Util.ConsoleHelper.AcceptChoices();
-                if (choiceAction > 5)
+                if ()
                 {
-                    flag = false;
-                    break;
+                    int choiceMember = Util.ConsoleHelper.AcceptMemberType();
+
                 }
-                int choiceMember = Util.ConsoleHelper.AcceptMemberType();
 
                 if (StrategiesMembers.TryGetValue(choiceMember, out var action))
                 {

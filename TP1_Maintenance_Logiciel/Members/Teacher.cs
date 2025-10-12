@@ -44,6 +44,7 @@ namespace SchoolManager
                     Program.Teachers[i].Balance -= MembersSalary.TeacherSalary;
                 }
             };
+            entry.Description = "Billing every teacher";
             UndoManager.Push(entry);
         };
 
@@ -61,6 +62,7 @@ namespace SchoolManager
             {
                 Program.Teachers.Remove(newTeacher);
             };
+            entry.Description = $"Removing the teacher {newTeacher.ToString}";
             UndoManager.Push(entry);
         };
 

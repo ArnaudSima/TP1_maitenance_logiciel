@@ -54,6 +54,7 @@ namespace SchoolManager
             {
                Program.Students.Remove(newStudent);
             };
+            entry.Description = $"Removing the student : {newStudent.ToString}";
             UndoManager.Push(entry);
         };
 

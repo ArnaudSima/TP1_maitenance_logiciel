@@ -57,6 +57,8 @@ namespace SchoolManager
             {
                 Program.Receptionist.Balance -= MembersSalary.ReceptionnistSalary;
             };
+            entry.Description = $"Billing the receptionnist : {ToString}";
+            UndoManager.Push(entry);
         };
 
         public override Action RaiseComplaint => () =>
@@ -76,6 +78,7 @@ namespace SchoolManager
             {
                 Program.Receptionist = new Receptionist(Program.Receptionist.Name, Program.Receptionist.Address, Program.Receptionist.Phone);
             };
+            entry.Description = $"Reverting to the receptionnist : {ToString}";
             UndoManager.Push(entry);
             Console.WriteLine("Please enter the Receptionist information.");
             Program.Receptionist.Name = ConsoleHelper.AskQuestion("Enter name: ");

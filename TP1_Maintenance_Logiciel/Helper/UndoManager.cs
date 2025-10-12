@@ -19,7 +19,7 @@ namespace TP1_Maintenance_Logiciel.Helper
 
             UndoEntry undoEntry = _history.Pop();
             undoEntry.Undo();
-            Console.WriteLine(undoEntry.Option.ToString());
+            Console.WriteLine(undoEntry.Description.ToString());
         };
     }
 }

@@ -41,7 +41,9 @@ namespace SchoolManager
             {
                 Program.Principal.Balance -= MembersSalary.PrincipalSalary;
             };
+            entry.Description = $"Billing the principal : {ToString} ";
             UndoManager.Push(entry);
+
         };
 
         public override Action Add => () =>
@@ -51,6 +53,7 @@ namespace SchoolManager
             {
                 Program.Principal = new Principal(Program.Principal.Name, Program.Principal.Address, Program.Principal.Phone);
             };
+            entry.Description = $"Removing the principal : {ToString}";
             UndoManager.Push(entry);
             Console.WriteLine("Please enter the Principals information.");
             Program.Principal.Name = ConsoleHelper.AskQuestion("Enter name: ");

@@ -8,7 +8,7 @@ namespace TP1_Maintenance_Logiciel.Members
 {
     public class UndoEntry
     {
-        public string Option { get; set; }
+        public string Description { get; set; }
 
         public Action Undo = () => { };
 

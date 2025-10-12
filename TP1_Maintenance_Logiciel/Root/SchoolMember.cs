@@ -24,7 +24,7 @@ namespace SchoolManager
         public abstract Action Display { get; }
         public abstract Action Pay { get; }
         public abstract Action RaiseComplaint { get; }
-        public Action Undo = UndoManager.Undo();
+        public Action Undo = () => UndoManager.Undo();
         public  bool MakeChoice(int choice)
         {
             if (ActionsPossible().TryGetValue(choice, out var value))
