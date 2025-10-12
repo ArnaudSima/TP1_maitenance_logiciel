@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TP1_Maintenance_Logiciel.Helper;
+using TP1_Maintenance_Logiciel.Members;
 using Util;
 
 namespace SchoolManager
@@ -50,6 +52,14 @@ namespace SchoolManager
             NetworkDelay.SimulateNetworkDelay();
             Balance += MembersSalary.ReceptionnistSalary;
             Console.WriteLine($"Paid Principal : {Name}. Total Balance: {Balance}");
+            UndoEntry entry = new UndoEntry();
+            entry.Undo = () =>
+            {
+                Program.Receptionist.Balance -= MembersSalary.ReceptionnistSalary;
+            };
+            entry.Description = $"Billing the receptionnist : {ToString}";
+            UndoManager.Push(entry);
+            Program.Flag = true;
         };
 
         public override Action RaiseComplaint => () =>
@@ -60,11 +70,23 @@ namespace SchoolManager
             Console.WriteLine("\nThis is a confirmation that we received your complaint. The details are as follows:");
             Console.WriteLine($"---------\nComplaint Time: {complaint.ComplaintTime.ToLongDateString()}, {complaint.ComplaintTime.ToLongTimeString()}");
             Console.WriteLine($"Complaint Raised: {complaint.ComplaintRaised}\n---------");
+            Program.Flag = true;
         };
         public override Action Add => () =>
         {
 
-            Console.WriteLine("There can only be one receptionnist!");
+            UndoEntry entry = new UndoEntry();
+            entry.Undo = () =>
+            {
+                Program.Receptionist = new Receptionist(Program.Receptionist.Name, Program.Receptionist.Address, Program.Receptionist.Phone);
+            };
+            entry.Description = $"Reverting to the receptionnist : {ToString()}";
+            UndoManager.Push(entry);
+            Console.WriteLine("Please enter the Receptionist information.");
+            Program.Receptionist.Name = ConsoleHelper.AskQuestion("Enter name: ");
+            Program.Receptionist.Address = ConsoleHelper.AskQuestion("Enter Address: ");
+            Program.Receptionist.Phone = Int32.Parse(ConsoleHelper.AskQuestion("Enter Phone: "));
+            Program.Flag = true;
         };
 
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using TP1_Maintenance_Logiciel.Helper;
+using TP1_Maintenance_Logiciel.Members;
 using Util;
 
 namespace SchoolManager
@@ -24,13 +26,28 @@ namespace SchoolManager
             {
                 Console.WriteLine(teacher.ToString());
             }
+            Program.Flag = true;
         };
 
         public override Action Pay => () =>  
         {
             NetworkDelay.SimulateNetworkDelay();
-            Balance += MembersSalary.TeacherSalary;
-            Console.WriteLine($"Paid Principal : {Name}. Total Balance: {Balance}");
+            for (int i = 0;  i < Program.Teachers.Count; i++)
+            {
+                Program.Teachers[i].Balance += MembersSalary.TeacherSalary;
+            }
+            Display?.Invoke();
+            UndoEntry entry = new UndoEntry();
+            entry.Undo = () =>
+            {
+                for (int i = 0; i < Program.Teachers.Count; i++)
+                {
+                    Program.Teachers[i].Balance -= MembersSalary.TeacherSalary;
+                }
+            };
+            entry.Description = "Billing every teacher";
+            UndoManager.Push(entry);
+            Program.Flag = true;
         };
 
         public override Action Add => () =>
@@ -42,11 +59,20 @@ namespace SchoolManager
             Teacher newTeacher = new Teacher(name, adresse, phone);
             newTeacher.Subject = ConsoleHelper.AskQuestion("Enter subject: ");
             Program.Teachers.Add(newTeacher);
+            UndoEntry entry = new UndoEntry();
+            entry.Undo = () =>
+            {
+                Program.Teachers.Remove(newTeacher);
+            };
+            entry.Description = $"Removing the teacher {newTeacher.ToString()}";
+            UndoManager.Push(entry);
+            Program.Flag = true;
         };
 
         public override Action RaiseComplaint => () =>
         {
             Console.WriteLine("Teachers cannot receive complaints,adress the receptionnist");
+            Program.Flag = true;
         };
 
         public string ToString()

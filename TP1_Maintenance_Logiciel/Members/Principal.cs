@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
 using System.Xml.Linq;
+using TP1_Maintenance_Logiciel.Helper;
+using TP1_Maintenance_Logiciel.Members;
 using Util;
 
 namespace SchoolManager
@@ -16,43 +19,62 @@ namespace SchoolManager
             Balance = 0;
         }
 
-        public Principal(string name, string address, int phoneNum, int income = 50000)
+        public Principal(string name, string address, int phoneNum)
         {
             Name = name;
             Address = address;
             Phone = phoneNum;
-            Income = income;
             Balance = 0;
         }
        
         public override Action Display => () => 
         {
             Console.WriteLine(Program.Principal.ToString());
+            Program.Flag = true;
         };
 
         public override Action Pay => () =>
         {
             NetworkDelay.SimulateNetworkDelay();
-            Balance += MembersSalary.PrincipalSalary;
-            Console.WriteLine($"Paid Principal : {Name}. Total Balance: {Balance}");
+            Program.Principal.Balance += MembersSalary.PrincipalSalary;
+            Console.WriteLine($"Paid Principal : {Program.Principal.Name}. Total Balance: {Program.Principal.Balance}");
+            UndoEntry entry = new UndoEntry();
+            entry.Undo = () =>
+            {
+                Program.Principal.Balance -= MembersSalary.PrincipalSalary;
+            };
+            entry.Description = $"Billing the principal : {ToString()} ";
+            UndoManager.Push(entry);
+            Program.Flag = true;
         };
 
         public override Action Add => () =>
         {
-            Console.WriteLine("Please enter the Princpals information.");
+            UndoEntry entry = new UndoEntry();
+            entry.Undo = () =>
+            {
+                Program.Principal = new Principal(Program.Principal.Name, Program.Principal.Address, Program.Principal.Phone);
+            };
+            entry.Description = $"Removing the principal : {ToString()}";
+            UndoManager.Push(entry);
+            Console.WriteLine("Please enter the Principals information.");
             Program.Principal.Name = ConsoleHelper.AskQuestion("Enter name: ");
             Program.Principal.Address = ConsoleHelper.AskQuestion("Enter Address: ");
             Program.Principal.Phone = Int32.Parse(ConsoleHelper.AskQuestion("Enter Phone: "));
+            Program.Flag = true;
         };
 
         public override Action RaiseComplaint => () =>
         {
 
             Console.WriteLine("If you have a complaint please adress the receptionnist");
+            Program.Flag = true;
         };
         public string ToString()
         {
             return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Balance: {Balance}";
         }
+
+       
     }
 }

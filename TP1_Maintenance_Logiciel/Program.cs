@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using System.Threading.Tasks;
+using TP1_Maintenance_Logiciel.Helper;
 namespace SchoolManager
 {
     public class Program
@@ -12,6 +13,8 @@ namespace SchoolManager
         static public Principal Principal = new Principal();
         static public Receptionist Receptionist = new Receptionist();
         static public Dictionary<int, SchoolMember> StrategiesMembers = new Dictionary<int, SchoolMember>();
+        static public Stack<Action> History = new Stack<Action>();
+        static public bool Flag = true;
         //J'ai enleve le codesmell godclass en repartissant les methodes dans differentes classes
         private static void AddData()
         {
@@ -35,36 +38,20 @@ namespace SchoolManager
             // Just for manual testing purposes.
             AddData();
             Console.WriteLine("-------------- Welcome ---------------\n");
-            Flag = true;
-
-            //default Member to access Quit()
-            SchoolMember defaultMember = new Student();
             while (Flag)
             {
                 int choiceAction = Util.ConsoleHelper.AcceptChoices();
-                if (choiceAction < 1 || choiceAction > 5)
+
+                int choiceMember = 1;
+                if (choiceAction <= 5)
                 {
-                    defaultMember.Quit.Invoke();
-                    break;
+                   choiceMember = Util.ConsoleHelper.AcceptMemberType();
                 }
-                else
+                if (StrategiesMembers.TryGetValue(choiceMember, out var action))
                 {
-                    int choiceMember = Util.ConsoleHelper.AcceptMemberType();
-
-                    if (StrategiesMembers.TryGetValue(choiceMember, out var action))
-                    {
-                        StrategiesMembers[choiceMember].MakeChoice(choiceAction);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid member type.");
-                        defaultMember.Quit.Invoke();
-                        break;
-                    }
+                     StrategiesMembers[choiceMember].MakeChoice(choiceAction);
                 }
-
-
-
+                
             }
 
             Console.WriteLine("\n-------------- Bye --------------");
