@@ -7,7 +7,6 @@ namespace SchoolManager
 {
     public class Program
     {
-        static public bool Flag;
         static public List<Student> Students = new List<Student>();
         static public List<Teacher> Teachers = new List<Teacher>();
         static public Principal Principal = new Principal();
