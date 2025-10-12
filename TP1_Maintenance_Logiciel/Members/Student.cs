@@ -31,7 +31,6 @@ namespace SchoolManager
 
         public override Action Add => () =>
         {
-
             string name = ConsoleHelper.AskQuestion("Name :");
             string adresse = ConsoleHelper.AskQuestion("Address :");
             int phone = ConsoleHelper.AskQuestionInt("Phone number :");
