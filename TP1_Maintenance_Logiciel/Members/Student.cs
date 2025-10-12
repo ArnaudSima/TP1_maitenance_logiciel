@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Intrinsics.X86;
+using TP1_Maintenance_Logiciel.Helper;
+using TP1_Maintenance_Logiciel.Members;
 using Util;
 
 namespace SchoolManager
@@ -8,8 +10,6 @@ namespace SchoolManager
     public class Student : SchoolMember
     {
         public int Grade{ get; set; }
-        public double AverageGrade { get; set; }
-
         public Student(string name = "", string address = "", int phoneNum = 0, int grade = 0)
         {
             Name = name;
@@ -18,16 +18,7 @@ namespace SchoolManager
             Grade = grade;
         }
 
-        public static double averageGrade()
-        {
-            double avg = 0;
-            foreach (Student student in Program.Students)
-            {
-                avg += student.Grade;
-            }
 
-            return avg / Program.Students.Count;
-        }
 
         public override Action Display => () =>
         {
@@ -46,6 +37,13 @@ namespace SchoolManager
             Student newStudent = new Student(name,adresse,phone);
             newStudent.Grade = ConsoleHelper.AskQuestionInt("Enter grade: ");
             Program.Students.Add(newStudent);
+            UndoEntry entry = new UndoEntry();
+            entry.Undo = () =>
+            {
+               Program.Students.Remove(newStudent);
+            };
+            entry.Description = $"Removing the student : {newStudent.ToString()}";
+            UndoManager.Push(entry);
         };
 
         public override Action Pay => () =>

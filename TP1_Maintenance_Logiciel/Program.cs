@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Threading.Tasks;
+using TP1_Maintenance_Logiciel.Helper;
 namespace SchoolManager
 {
     public class Program
@@ -10,6 +12,8 @@ namespace SchoolManager
         static public Principal Principal = new Principal();
         static public Receptionist Receptionist = new Receptionist();
         static public Dictionary<int, SchoolMember> StrategiesMembers = new Dictionary<int, SchoolMember>();
+        static public Stack<Action> History = new Stack<Action>();
+        static public bool Flag = true;
         //J'ai enleve le codesmell godclass en repartissant les methodes dans differentes classes
         private static void AddData()
         {
@@ -22,7 +26,7 @@ namespace SchoolManager
                 Students.Add(new Student(i.ToString(), i.ToString(), i, i));
                 Teachers.Add(new Teacher(i.ToString(), i.ToString(), i));
             }
-          
+
 
         }
 
@@ -33,25 +37,20 @@ namespace SchoolManager
             // Just for manual testing purposes.
             AddData();
             Console.WriteLine("-------------- Welcome ---------------\n");
-            bool flag = true;
-            while (flag)
+            while (Flag)
             {
                 int choiceAction = Util.ConsoleHelper.AcceptChoices();
-                if (choiceAction > 5)
-                {
-                    flag = false;
-                    break;
-                }
-                int choiceMember = Util.ConsoleHelper.AcceptMemberType();
 
+                int choiceMember = 1;
+                if (choiceAction <= 5)
+                {
+                   choiceMember = Util.ConsoleHelper.AcceptMemberType();
+                }
                 if (StrategiesMembers.TryGetValue(choiceMember, out var action))
                 {
-                    flag = StrategiesMembers[choiceMember].MakeChoice(choiceAction);
+                     StrategiesMembers[choiceMember].MakeChoice(choiceAction);
                 }
-                else
-                {
-                    flag = false;
-                }
+                
             }
 
             Console.WriteLine("\n-------------- Bye --------------");
