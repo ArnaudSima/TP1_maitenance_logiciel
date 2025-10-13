@@ -90,9 +90,22 @@ namespace SchoolManager
 
         public override Action RaiseComplaint => () =>
         {
+            string complaintTest = "";
+            bool state = false;
             Complaint complaint = new Complaint();
             complaint.ComplaintTime = DateTime.Now;
-            complaint.ComplaintRaised = ConsoleHelper.AskQuestion("Please enter your Complaint: ");
+            while (!state)
+            {
+                complaintTest = ConsoleHelper.AskQuestion("Please enter your Complaint: ");
+                if (string.IsNullOrEmpty(complaintTest) || string.IsNullOrWhiteSpace(complaintTest)){
+                    Console.WriteLine("Warning: The complain cannot be empty");
+                }
+                else
+                {
+                    state = true;
+                }
+            }
+            //complaint.ComplaintRaised = ConsoleHelper.AskQuestion("Please enter your Complaint: ");
             Console.WriteLine("\nThis is a confirmation that we received your complaint. The details are as follows:");
             Console.WriteLine($"---------\nComplaint Time: {complaint.ComplaintTime.ToLongDateString()}, {complaint.ComplaintTime.ToLongTimeString()}");
             Console.WriteLine($"Complaint Raised: {complaint.ComplaintRaised}\n---------");
