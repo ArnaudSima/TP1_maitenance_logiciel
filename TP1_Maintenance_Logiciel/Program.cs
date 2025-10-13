@@ -40,7 +40,7 @@ namespace SchoolManager
                 int choiceAction = Util.ConsoleHelper.AcceptChoices();
 
                 int choiceMember = 1;
-                if (choiceAction <= 5)
+                if (choiceAction < 5)
                 {
                    choiceMember = Util.ConsoleHelper.AcceptMemberType();
                 }
