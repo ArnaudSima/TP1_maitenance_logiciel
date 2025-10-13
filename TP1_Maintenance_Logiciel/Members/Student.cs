@@ -11,39 +11,7 @@ namespace SchoolManager
     {
         public int Grade{ get; set; }
         public Student(string name = "", string address = "", int phoneNum = 0, int grade = 0)
-        {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
-            {
-                Console.WriteLine("Warning: The name cannot be empty");
-                name = "default name";
-            }
-
-            if (string.IsNullOrEmpty(address) || string.IsNullOrWhiteSpace(address))
-            {
-                Console.WriteLine("Warning: The address cannot be empty");
-                address = "default address";
-            }
-
-            string phoneInput = phoneNum.ToString();
-            int phoneTest;
-            if (phoneNum <= 0 || phoneNum.ToString().Length < 8 || !int.TryParse(phoneInput, out phoneTest))
-            {
-                Console.WriteLine("Warning: The phone number cannot be empty, equal to zero or longer then 8 characters");
-                phoneNum = 0;
-            }
-
-            string gradeInput = grade.ToString();
-            int gradeTest;
-            if (!int.TryParse(gradeInput, out gradeTest))
-            {
-                Console.WriteLine("Warning: The grade can only have number");
-                grade = 0;
-            } else if(grade < 0 || grade > 100 )
-            {
-                Console.WriteLine("Warning: The grade cannot be below zero or over 100");
-                grade = 0;
-            }
-            
+        { 
             Name = name;
             Address = address;
             Phone = phoneNum;

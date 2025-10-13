@@ -21,11 +21,11 @@ namespace SchoolManager
 
             Principal = new Principal("Principal", "address", 123);
 
-            /*for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
-                Students.Add(new Student(i.ToString(), i.ToString(), i + 1, i + 1));
-                Teachers.Add(new Teacher(i.ToString(), i.ToString(), i + 1));
-            }*/
+                Students.Add(new Student(i.ToString() , i.ToString() , i , i));
+                Teachers.Add(new Teacher(i.ToString() , i.ToString() , i));
+            }
         }
 
         public static async Task Main(string[] args)

@@ -15,11 +15,6 @@ namespace SchoolManager
 
         public Principal(int income = MembersSalary.PrincipalSalary)
         {
-            if(income <= 0)
-            {
-                Console.WriteLine("Warning: The income cannot be negative or equal zero");
-                income = 0;
-            }
             Income = income;
             Balance = 0;
         }

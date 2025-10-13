@@ -10,24 +10,6 @@ namespace SchoolManager
 
         public SchoolMember(string name = "", string address = "", int phone = 0)
         {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
-            {
-                Console.WriteLine("Warning: The name cannot be empty");
-                name = "default name";
-            }
-
-            if (string.IsNullOrEmpty(address) || string.IsNullOrWhiteSpace(address))
-            {
-                Console.WriteLine("Warning: The name cannot be empty");
-                address = "default address";
-            }
-            string phoneInput = phone.ToString();
-            int phoneTest;
-            if (phone <= 0 || phone.ToString().Length < 8 || !int.TryParse(phoneInput, out phoneTest))
-            {
-                Console.WriteLine("Warning: The phone number cannot be empty, equal to zero or longer then 8 characters");
-                phone = 0;
-            }
             Name = name;
             Address = address;
             Phone = phone;
