@@ -60,10 +60,6 @@ namespace SchoolManager
         {
             return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Grade: {Grade}";
         }
-        public static async Task ShowPerformance()
-        {
-            //double average = await Task.Run(() => Student.ShowPerformance(Average));
-            //Console.WriteLine($"The student average performance is: {average}");
-        }
+
     }
 }
