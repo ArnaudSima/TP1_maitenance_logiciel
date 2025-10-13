@@ -52,12 +52,99 @@ namespace SchoolManager
 
         public override Action Add => () =>
         {
+             string nameTest, addressTest, phoneTest, subjectTest;
+            bool entrerValide = true;
+             //tester le nom
+            nameTest = ConsoleHelper.AskQuestion("Enter name: ");
+            if (string.IsNullOrEmpty(nameTest) || string.IsNullOrWhiteSpace(nameTest))
+            {
+                Console.WriteLine("Warning: The name cannot be empty");
+                entrerValide = false;
+            }
+            while (!entrerValide)
+            {
+                nameTest = ConsoleHelper.AskQuestion("Enter name: ");
+                if (string.IsNullOrEmpty(nameTest) || string.IsNullOrWhiteSpace(nameTest))
+                {
+                    Console.WriteLine("Warning: The name cannot be empty");
+                }
+                else
+                {
+                    entrerValide = true;
+                }
+            }
 
-            string name = ConsoleHelper.AskQuestion("Name :");
-            string adresse = ConsoleHelper.AskQuestion("Address :");
-            int phone = ConsoleHelper.AskQuestionInt("Phone number :");
-            Teacher newTeacher = new Teacher(name, adresse, phone);
-            newTeacher.Subject = ConsoleHelper.AskQuestion("Enter subject: ");
+            //tester l'address
+            addressTest = ConsoleHelper.AskQuestion("Enter Address: ");
+            if (string.IsNullOrEmpty(addressTest) || string.IsNullOrWhiteSpace(addressTest))
+            {
+                Console.WriteLine("Warning: The address cannot be empty");
+                entrerValide = false;
+            }
+            while (!entrerValide)
+            {
+                addressTest = ConsoleHelper.AskQuestion("Enter Address: ");
+                if (string.IsNullOrEmpty(addressTest) || string.IsNullOrWhiteSpace(addressTest))
+                {
+                    Console.WriteLine("Warning: The address cannot be empty");
+                }
+                else
+                {
+                    entrerValide = true;
+                }
+            }
+
+            //tester le numero de telephone
+            phoneTest = ConsoleHelper.AskQuestion("Enter Phone: ");
+            int phoneInput;
+            if (!int.TryParse(phoneTest, out phoneInput) )
+            {
+                Console.WriteLine("Warning: The phone number must have only number. ");
+                
+            }else if (phoneInput == 0 || string.IsNullOrWhiteSpace(phoneTest) || string.IsNullOrEmpty(phoneTest))
+            {
+                Console.WriteLine("Warning: The phone number cannot be equal to zero or empty ");
+                entrerValide = false;
+            }
+            while (!entrerValide)
+            {
+                phoneTest = ConsoleHelper.AskQuestion("Enter Phone: ");
+                if (!int.TryParse(phoneTest, out phoneInput))
+                {
+                    Console.WriteLine("Warning: The phone number must have only number. ");
+
+                }
+                else if (phoneInput == 0 || string.IsNullOrWhiteSpace(phoneTest) || string.IsNullOrEmpty(phoneTest))
+                {
+                    Console.WriteLine("Warning: The phone number cannot be equal to zero or empty ");
+                    entrerValide = false;
+                }
+                else
+                {
+                    entrerValide = true;
+                }
+            }
+            Teacher newTeacher = new Teacher(nameTest, addressTest, int.Parse(phoneTest));
+            //tester le subject
+            subjectTest = ConsoleHelper.AskQuestion("Enter subject: ");
+            if (string.IsNullOrEmpty(subjectTest) || string.IsNullOrWhiteSpace(subjectTest))
+            {
+                Console.WriteLine("Warning: The subject cannot be empty");
+                entrerValide = false;
+            }
+            while (!entrerValide)
+            {
+                subjectTest = ConsoleHelper.AskQuestion("Enter subject: ");
+                if (string.IsNullOrEmpty(subjectTest) || string.IsNullOrWhiteSpace(subjectTest))
+                {
+                    Console.WriteLine("Warning: The subject cannot be empty");
+                }
+                else
+                {
+                    entrerValide = true;
+                }
+            }
+            newTeacher.Subject = subjectTest;
             Program.Teachers.Add(newTeacher);
             UndoEntry entry = new UndoEntry();
             entry.Undo = () =>
