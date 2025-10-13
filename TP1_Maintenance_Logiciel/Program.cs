@@ -47,7 +47,6 @@ namespace SchoolManager
                 }
                 if (StrategiesMembers.TryGetValue(choiceMember, out var action))
                 {
-                    Console.WriteLine("Choix membre: " + choiceMember);
                      StrategiesMembers[choiceMember].MakeChoice(choiceAction);
                 }
                 
