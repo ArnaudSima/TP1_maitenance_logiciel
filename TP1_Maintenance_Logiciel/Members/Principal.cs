@@ -34,9 +34,11 @@ namespace SchoolManager
             if (string.IsNullOrEmpty(address) || string.IsNullOrWhiteSpace(address))
             {
                 Console.WriteLine("Warning: The address cannot be empty");
-                address= "default address";
+                address = "default address";
             }
-            if (phoneNum <= 0 || phoneNum.ToString().Length < 8)
+            string phoneInput = phoneNum.ToString();
+            int phoneTest;
+            if (phoneNum <= 0 || phoneNum.ToString().Length < 8 || !int.TryParse(phoneInput, out phoneTest))
             {
                 Console.WriteLine("Warning: The phone number cannot be empty, equal to zero or longer then 8 characters");
                 phoneNum = 0;
