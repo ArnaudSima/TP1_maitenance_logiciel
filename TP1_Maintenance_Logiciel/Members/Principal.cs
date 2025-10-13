@@ -10,9 +10,9 @@ namespace SchoolManager
         public int Income { get; set; }
         public int Balance { get; set; }
 
-        public Principal(int income = MembersSalary.PrincipalSalary)
+        public Principal(int? income = null)
         {
-            Income = income;
+            Income = income ?? MembersSalary.PrincipalSalary;
             Balance = 0;
         }
 
@@ -24,8 +24,8 @@ namespace SchoolManager
             Income = income;
             Balance = 0;
         }
-       
-        public override Action Display => () => 
+
+        public override Action Display => () =>
         {
             Console.WriteLine(Program.Principal.ToString());
         };
@@ -50,7 +50,7 @@ namespace SchoolManager
 
             Console.WriteLine("If you have a complaint please adress the receptionnist");
         };
-        public string ToString()
+        public override string ToString()
         {
             return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Balance: {Balance}";
         }
