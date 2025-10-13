@@ -68,7 +68,7 @@ namespace SchoolManager
 
         public override Action Add => () =>
         {
-            string nameTest, addressTest, phoneTest;
+            string nameTest, addressTest, phoneTest = "";
             bool entrerValide = true;
             UndoEntry entry = new UndoEntry();
             entry.Undo = () =>
@@ -120,34 +120,31 @@ namespace SchoolManager
             }
 
             //tester le numero de telephone
-            phoneTest = ConsoleHelper.AskQuestion("Enter Phone: ");
+            entrerValide = false;
             int phoneInput;
-            if (!int.TryParse(phoneTest, out phoneInput) )
-            {
-                Console.WriteLine("Warning: The phone number must have only number. ");
-                
-            }else if (phoneInput == 0 || string.IsNullOrWhiteSpace(phoneTest) || string.IsNullOrEmpty(phoneTest))
-            {
-                Console.WriteLine("Warning: The phone number cannot be equal to zero or empty ");
-                entrerValide = false;
-            }
             while (!entrerValide)
             {
                 phoneTest = ConsoleHelper.AskQuestion("Enter Phone: ");
+
+                if (string.IsNullOrWhiteSpace(phoneTest))
+                {
+                    Console.WriteLine("Warning: The phone number cannot be empty.");
+                    continue;
+                }
+
                 if (!int.TryParse(phoneTest, out phoneInput))
                 {
-                    Console.WriteLine("Warning: The phone number must have only number. ");
+                    Console.WriteLine("Warning: The phone number must contain only numbers.");
+                    continue;
+                }
 
-                }
-                else if (phoneInput == 0 || string.IsNullOrWhiteSpace(phoneTest) || string.IsNullOrEmpty(phoneTest))
+                if (phoneInput == 0)
                 {
-                    Console.WriteLine("Warning: The phone number cannot be equal to zero or empty ");
-                    entrerValide = false;
+                    Console.WriteLine("Warning: The phone number cannot be zero.");
+                    continue;
                 }
-                else
-                {
-                    entrerValide = true;
-                }
+
+                entrerValide = true;
             }
 
             //création du principal

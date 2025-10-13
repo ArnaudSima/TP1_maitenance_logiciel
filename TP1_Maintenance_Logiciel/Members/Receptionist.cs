@@ -100,7 +100,7 @@ namespace SchoolManager
         };
         public override Action Add => () =>
         {
-            string nameTest, addressTest, phoneTest;
+            string nameTest, addressTest, phoneTest = "";
             bool entrerValide = true;
             
             UndoEntry entry = new UndoEntry();
@@ -152,17 +152,8 @@ namespace SchoolManager
             }
 
             //tester le numero de telephone
-            phoneTest = ConsoleHelper.AskQuestion("Enter Phone: ");
+            entrerValide = false;
             int phoneInput;
-            if (!int.TryParse(phoneTest, out phoneInput) )
-            {
-                Console.WriteLine("Warning: The phone number must have only number. ");
-                
-            }else if (phoneInput == 0 || string.IsNullOrWhiteSpace(phoneTest) || string.IsNullOrEmpty(phoneTest))
-            {
-                Console.WriteLine("Warning: The phone number cannot be equal to zero or empty ");
-                entrerValide = false;
-            }
             while (!entrerValide)
             {
                 phoneTest = ConsoleHelper.AskQuestion("Enter Phone: ");
