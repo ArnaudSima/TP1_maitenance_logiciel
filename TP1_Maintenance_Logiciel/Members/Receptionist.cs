@@ -76,7 +76,7 @@ namespace SchoolManager
         {
 
             NetworkDelay.SimulateNetworkDelay();
-            Balance += MembersSalary.ReceptionnistSalary;
+            Program.Receptionist.Balance += MembersSalary.ReceptionnistSalary;
             Console.WriteLine($"Paid Principal : {Name}. Total Balance: {Balance}");
             UndoEntry entry = new UndoEntry();
             entry.Undo = () =>
