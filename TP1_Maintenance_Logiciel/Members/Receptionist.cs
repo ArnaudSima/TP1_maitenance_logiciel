@@ -32,7 +32,7 @@ namespace SchoolManager
             Balance = 0;
         }
 
-        public Receptionist(string name, string address, int phoneNum, int income = MembersSalary.ReceptionnistSalary)
+        public Receptionist(string name, string address, int phoneNum, int? income = null)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name))
             {
@@ -61,7 +61,7 @@ namespace SchoolManager
             Name = name;
             Address = address;
             Phone = phoneNum;
-            Income = income;
+            Income = income ?? MembersSalary.ReceptionnistSalary;
             Balance = 0;
         }
         public Receptionist(){}
@@ -192,7 +192,7 @@ namespace SchoolManager
         };
 
 
-        private string ToString()
+        public override string ToString()
         {
             return $"Name: {Name}, Address: {Address}, Phone: {Phone}, Income: ${Income}, Balance : ${Balance}";
         }

@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Threading;
+using Microsoft.Extensions.Configuration;
 
 namespace Util
 {
     public class NetworkDelay
     {
-        private const int minDelay = 1000;
-        private const int maxDelay = 5000;
+        private static readonly NetworkDelaySettings _settings;
 
-        public static int MinDelay
+        static NetworkDelay()
         {
-            get { return minDelay; }
+            var config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false)
+            .AddEnvironmentVariables(prefix: "APP_")
+            .Build();
+
+            _settings = new NetworkDelaySettings();
+            config.GetSection("NetworkDelay").Bind(_settings);
         }
 
-        public static int MaxDelay
-        {
-            get { return maxDelay; }
-        }
 
         static public void SimulateNetworkDelay()
         {
             Random rnd = new Random();
-            Thread.Sleep(rnd.Next(minDelay, maxDelay));
+            Thread.Sleep(rnd.Next(_settings.MinMs, _settings.MaxMs));
         }
     }
 }

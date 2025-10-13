@@ -13,10 +13,10 @@ namespace Util
 
         enum SchoolMemberType
         {
-            typePrincipal = 1,
-            typeTeacher,
-            typeStudent,
-            typeReceptionist
+            TypePrincipal,
+            TypeTeacher,
+            TypeStudent,
+            TypeReceptionist
         }
         static public int AskQuestionInt(string question)
         {
