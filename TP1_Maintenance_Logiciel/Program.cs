@@ -42,10 +42,12 @@ namespace SchoolManager
                 int choiceMember = 1;
                 if (choiceAction < 5)
                 {
-                   choiceMember = Util.ConsoleHelper.AcceptMemberType();
+                    choiceMember = Util.ConsoleHelper.AcceptMemberType();
+                   
                 }
                 if (StrategiesMembers.TryGetValue(choiceMember, out var action))
                 {
+                    Console.WriteLine("Choix membre: " + choiceMember);
                      StrategiesMembers[choiceMember].MakeChoice(choiceAction);
                 }
                 

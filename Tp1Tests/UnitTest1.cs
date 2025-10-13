@@ -3,6 +3,7 @@ using SchoolManager;
 
 public class UnitTest1
 {
+    //Test d'entré dans la console
     [Fact]
     public void AcceptMemberType_DeStudent_WithConsoleTyping()
     {
@@ -37,6 +38,8 @@ public class UnitTest1
         Assert.Equal(grade, student.Grade);
         Console.SetIn(originalIn);
     }
+
+    //test si c'est faux
 
     [Fact]
     public void AcceptMemberType_DeTeacher_WithConsoleTyping()
@@ -101,14 +104,14 @@ public class UnitTest1
         Assert.Equal(phone, principal.Phone);
         Console.SetIn(originalIn);
     }
-    
+
     [Fact]
     public void AcceptMemberType_DeReceptionist_WithConsoleTyping()
     {
-        Program.StrategiesMembers = new Dictionary<int, SchoolMember> { 
-            { 1, new Principal() }, 
-            { 2, new Teacher() }, 
-            { 3, new Student() }, 
+        Program.StrategiesMembers = new Dictionary<int, SchoolMember> {
+            { 1, new Principal() },
+            { 2, new Teacher() },
+            { 3, new Student() },
             { 4, new Receptionist() } };
 
         string name = "Béattrice";
@@ -122,12 +125,82 @@ public class UnitTest1
         var originalIn = Console.In;
         Console.SetIn(new StringReader(simulatedInput));
         Program.StrategiesMembers[choiceAddPrincipal].MakeChoice(choiceAction);
-        
+
 
         var receptionist = Program.Receptionist;
         Assert.Equal(name, receptionist.Name);
         Assert.Equal(address, receptionist.Address);
         Assert.Equal(phone, receptionist.Phone);
         Console.SetIn(originalIn);
+    }
+
+    //Test de logique 
+    [Fact]
+    public void RaiseIncome_DeTeacher()
+    {
+        Program.StrategiesMembers = new Dictionary<int, SchoolMember> {
+            { 1, new Principal() },
+            { 2, new Teacher() },
+            { 3, new Student() },
+            { 4, new Receptionist() } };
+
+        Program.Teachers.Add(new Teacher("", "", 0));
+        var teacher = Program.Teachers[0];
+
+        int balanceAttendu = 25000;
+
+        int choiceAction = 3;
+        int choicePayTeacher = 2;
+
+        Program.StrategiesMembers[choicePayTeacher].MakeChoice(choiceAction);
+        int balanceTest = teacher.Balance;
+
+        Assert.Equal(balanceTest, balanceAttendu);
+    }
+
+    [Fact]
+    public void RaiseIncome_DePrincipal()
+    {
+        Program.StrategiesMembers = new Dictionary<int, SchoolMember> {
+            { 1, new Principal() },
+            { 2, new Teacher() },
+            { 3, new Student() },
+            { 4, new Receptionist() } };
+
+        Program.Principal = new Principal("Principal", "address", 123);
+        var principal = Program.Principal;
+
+        int balanceAttendu = 50000;
+
+        int choiceAction = 3;
+        int choicePayPrincipal = 1;
+
+        Program.StrategiesMembers[choicePayPrincipal].MakeChoice(choiceAction);
+        int balanceTest = principal.Balance;
+
+        Assert.Equal(balanceTest, balanceAttendu);
+    }
+    
+    [Fact]
+    public void RaiseIncome_DeReceptionist()
+    {
+        Program.StrategiesMembers = new Dictionary<int, SchoolMember> {
+            { 1, new Principal() },
+            { 2, new Teacher() },
+            { 3, new Student() },
+            { 4, new Receptionist() } };
+
+        Program.Receptionist = new Receptionist("Receptionist", "address", 123);
+        var receptionist = Program.Receptionist;
+
+        int balanceAttendu = 10000;
+
+        int choiceAction = 3;
+        int choicePayReceptionist = 4;
+
+        Program.StrategiesMembers[choicePayReceptionist].MakeChoice(choiceAction);
+        int balanceTest = receptionist.Balance;
+
+        Assert.Equal(balanceTest, balanceAttendu);
     }
 }

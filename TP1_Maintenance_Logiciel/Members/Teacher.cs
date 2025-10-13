@@ -10,7 +10,7 @@ namespace SchoolManager
         public string Subject { get; set; }
         public int Balance { get; set; }
 
-        public Teacher(string name, string address, int phoneNum, string subject = "sexologie")
+        public Teacher(string name, string address, int phoneNum, string subject = "Maintenance Logiciel")
         {
             Name = name;
             Address = address;

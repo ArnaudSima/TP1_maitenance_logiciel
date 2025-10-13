@@ -16,7 +16,7 @@ namespace SchoolManager
         public string ComplaintRaised { get; set; }
     }
 
-    public class Receptionist : SchoolMember
+    public class Receptionist : SchoolMember 
     {
         private int Income { get; set; }
         public int Balance { get; set; }
@@ -105,7 +105,7 @@ namespace SchoolManager
                     state = true;
                 }
             }
-            //complaint.ComplaintRaised = ConsoleHelper.AskQuestion("Please enter your Complaint: ");
+            complaint.ComplaintRaised = complaintTest;
             Console.WriteLine("\nThis is a confirmation that we received your complaint. The details are as follows:");
             Console.WriteLine($"---------\nComplaint Time: {complaint.ComplaintTime.ToLongDateString()}, {complaint.ComplaintTime.ToLongTimeString()}");
             Console.WriteLine($"Complaint Raised: {complaint.ComplaintRaised}\n---------");
