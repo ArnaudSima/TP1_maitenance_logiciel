@@ -13,7 +13,7 @@ namespace Util
 
         enum SchoolMemberType
         {
-            TypePrincipal,
+            TypePrincipal = 1,
             TypeTeacher,
             TypeStudent,
             TypeReceptionist
