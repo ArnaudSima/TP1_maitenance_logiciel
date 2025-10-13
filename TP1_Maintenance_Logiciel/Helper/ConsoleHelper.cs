@@ -33,7 +33,21 @@ namespace Util
 
         public static int AcceptChoices()
         {
-            return AskQuestionInt("\n1. Add\n2. display\n3. Pay\n4. Raise Complaint\n5. Student Performance\n6. Quit\n7. Undo\nPlease enter the action type: ");
+            bool state = false;
+            var result = 0;
+            while (!state)
+            {
+               result = AskQuestionInt("\n1. Add\n2. display\n3. Pay\n4. Raise Complaint\n5. Student Performance\n6. Quit\n7. Undo\nPlease enter the action type: ");
+                if(result <= 0 || result > 7)
+                {
+                    Console.WriteLine("Invalid input. Please try again: ");
+                }
+                else
+                {
+                    state = true;
+                }
+            }
+            return result;
         }
 
         public static int AcceptMemberType()

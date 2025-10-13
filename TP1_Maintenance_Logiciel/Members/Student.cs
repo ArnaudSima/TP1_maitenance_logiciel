@@ -11,7 +11,7 @@ namespace SchoolManager
     {
         public int Grade{ get; set; }
         public Student(string name = "", string address = "", int phoneNum = 0, int grade = 0)
-        {
+        { 
             Name = name;
             Address = address;
             Phone = phoneNum;
@@ -31,11 +31,92 @@ namespace SchoolManager
 
         public override Action Add => () =>
         {
-            string name = ConsoleHelper.AskQuestion("Name :");
-            string adresse = ConsoleHelper.AskQuestion("Address :");
-            int phone = ConsoleHelper.AskQuestionInt("Phone number :");
-            Student newStudent = new Student(name,adresse,phone);
-            newStudent.Grade = ConsoleHelper.AskQuestionInt("Enter grade: ");
+            string nameTest, addressTest, phoneTest = "", gradeTest = "";
+            bool entrerValide = true;
+             //tester le nom
+            nameTest = ConsoleHelper.AskQuestion("Enter name: ");
+            if (string.IsNullOrEmpty(nameTest) || string.IsNullOrWhiteSpace(nameTest))
+            {
+                Console.WriteLine("Warning: The name cannot be empty");
+                entrerValide = false;
+            }
+            while (!entrerValide)
+            {
+                nameTest = ConsoleHelper.AskQuestion("Enter name: ");
+                if (string.IsNullOrEmpty(nameTest) || string.IsNullOrWhiteSpace(nameTest))
+                {
+                    Console.WriteLine("Warning: The name cannot be empty");
+                }
+                else
+                {
+                    entrerValide = true;
+                }
+            }
+
+            //tester l'address
+            addressTest = ConsoleHelper.AskQuestion("Enter Address: ");
+            if (string.IsNullOrEmpty(addressTest) || string.IsNullOrWhiteSpace(addressTest))
+            {
+                Console.WriteLine("Warning: The address cannot be empty");
+                entrerValide = false;
+            }
+            while (!entrerValide)
+            {
+                addressTest = ConsoleHelper.AskQuestion("Enter Address: ");
+                if (string.IsNullOrEmpty(addressTest) || string.IsNullOrWhiteSpace(addressTest))
+                {
+                    Console.WriteLine("Warning: The address cannot be empty");
+                }
+                else
+                {
+                    entrerValide = true;
+                }
+            }
+
+            //tester le numero de telephone
+             entrerValide = false;
+            int phoneInput;
+            while (!entrerValide)
+            {
+                phoneTest = ConsoleHelper.AskQuestion("Enter Phone: ");
+                if (!int.TryParse(phoneTest, out phoneInput))
+                {
+                    Console.WriteLine("Warning: The phone number must have only number. ");
+
+                }
+                else if (phoneInput == 0 || string.IsNullOrWhiteSpace(phoneTest) || string.IsNullOrEmpty(phoneTest))
+                {
+                    Console.WriteLine("Warning: The phone number cannot be equal to zero or empty ");
+                    entrerValide = false;
+                }
+                else
+                {
+                    entrerValide = true;
+                }
+            }
+            Student newStudent = new Student(nameTest, addressTest, int.Parse(phoneTest));
+
+            //tester la grade
+            entrerValide = false;
+            int gradeInput;
+            while (!entrerValide)
+            {
+                gradeTest = ConsoleHelper.AskQuestion("Enter grade: ");
+                if (!int.TryParse(gradeTest, out gradeInput))
+                {
+                    Console.WriteLine("Warning: The grade must have only number. ");
+                }
+                else if (gradeInput < 0 || gradeInput > 100)
+                {
+                    Console.WriteLine("Warning: The grade cannot be negative or over 100 ");
+                    entrerValide = false;
+                }
+                else
+                {
+                    entrerValide = true;
+                }
+            }
+            newStudent.Grade = int.Parse(gradeTest);
             Program.Students.Add(newStudent);
             UndoEntry entry = new UndoEntry();
             entry.Undo = () =>

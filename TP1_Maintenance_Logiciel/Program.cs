@@ -23,11 +23,9 @@ namespace SchoolManager
 
             for (int i = 0; i < 10; i++)
             {
-                Students.Add(new Student(i.ToString(), i.ToString(), i, i));
-                Teachers.Add(new Teacher(i.ToString(), i.ToString(), i));
+                Students.Add(new Student(i.ToString() , i.ToString() , i , i));
+                Teachers.Add(new Teacher(i.ToString() , i.ToString() , i));
             }
-
-
         }
 
         public static async Task Main(string[] args)
@@ -42,7 +40,7 @@ namespace SchoolManager
                 int choiceAction = Util.ConsoleHelper.AcceptChoices();
 
                 int choiceMember = 1;
-                if (choiceAction <= 5)
+                if (choiceAction < 5)
                 {
                    choiceMember = Util.ConsoleHelper.AcceptMemberType();
                 }
