@@ -32,7 +32,7 @@ namespace SchoolManager
                 sum += student.Grade;
             }
             
-            Console.WriteLine($"This is the current student performance : \n{avg / Program.Students.Count}");
+            Console.WriteLine($"This is the current student performance : \n{sum / Program.Students.Count}");
             Program.Flag = true;
         };
         public Action Quit = () => { 
